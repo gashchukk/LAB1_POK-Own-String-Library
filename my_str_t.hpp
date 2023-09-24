@@ -4,7 +4,8 @@
 
 #ifndef LAB1_CSTRING_SHUMSKYI_HASHCHUK_MY_STR_T_H
 #define LAB1_CSTRING_SHUMSKYI_HASHCHUK_MY_STR_T_H
-
+#include <iostream>
+//#include <cstring>
 
 class my_str_t {
 private:
@@ -21,7 +22,7 @@ private:
     my_str_t& operator=(const my_str_t& mystr);
 
     // обмінює вміст стрічки з other за допомогою вказівників
-    void swap(my_str_t& other) noexcept;
+//    void swap(my_str_t& other) noexcept;
 
     // два варіанти оператора індексації
     char& operator[](size_t idx);
@@ -44,30 +45,30 @@ private:
     void erase(size_t begin, size_t size);
 
     // повертають розмір стрічки та зарезервований блок пам'яті
-    si z e_ t s i z e( )const noexcept;
-    si z e_ t c a p a ci t y ( ) const noexcep t ;
+//    size_t size() const noexcept;
+//    size_t capacity() const noexcept;
 
     // повертає вказівник на С-стрічку
-    const char* c_str() const noexcept;
+//    const char* c_str() const noexcept;
 
-    static constexpr size_t not_found = -1;
-    size_t find(char c, size_t idx = 0);
-    size_t find(const std::string& str, size_t idx = 0);
-    size_t find(const char* cstr, size_t idx = 0);
+//    static constexpr size_t not_found = -1;
+//    size_t find(char c, size_t idx = 0);
+//    size_t find(const std::string& str, size_t idx = 0);
+//    size_t find(const char* cstr, size_t idx = 0);
 
 
-    my_str_t s u b s t r ( si z e_ t begin , si z e_ t s i z e ) ;
-    ~my_str_t ( ) ;
+    my_str_t substr(size_t begin, size_t size) ;
+    ~my_str_t();
 };
 
 // оператори вводу та виводу
-std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
-    stream << str.c_str();
-    return stream;
-}
+//std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
+//    stream << str.c_str();
+//    return stream;
+//}
 
 std::istream& operator>>(std::istream& stream, my_str_t& str) {
-#error "Please implement the input, check every function, and remove this line!"
+//    #error "Please implement the input, check every function, and remove this line!"
     return stream;
 }
 
