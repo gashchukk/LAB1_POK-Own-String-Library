@@ -5,16 +5,16 @@
 #ifndef LAB1_CSTRING_SHUMSKYI_HASHCHUK_MY_STR_T_H
 #define LAB1_CSTRING_SHUMSKYI_HASHCHUK_MY_STR_T_H
 #include <iostream>
-//#include <cstring>
+#include <cstring>
 
 class my_str_t {
 private:
     char* data_m;
     size_t capacity_m;
     size_t size_m;
-private:
+public:
     my_str_t(size_t size, char initial);
-    my_str_t(const char* cstr);
+    my_str_t(const char* cstr); // копіює вміст С-стрічки, вимоги до capacity_m - ті ж що вище
     my_str_t(const std::string& str);
     my_str_t(const my_str_t& mystr); // конструктор копіювання
 
