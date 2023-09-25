@@ -94,6 +94,58 @@ void my_str_t::swap(my_str_t& other) noexcept {
 
     // взагалі легально???
     std::swap(data_m, other.data_m);
+    std::swap(size_m, other.size_m);
+    std::swap(capacity_m, other.capacity_m);
+}
+
+void my_str_t::reserve(size_t new_capacity) {
+    if (new_capacity <= capacity_m) {
+        return;
+    }
+    char* new_data = new char[new_capacity];
+
+    for (size_t i = 0; i < size_m; ++i) {
+        new_data[i] = data_m[i];
+    }
+    delete[] data_m;
+
+    data_m = new_data;
+    capacity_m = new_capacity;
+
+}
+
+void my_str_t::shrink_to_fit() {
+    if (capacity_m == size_m) {
+        return;
+    }
+    capacity_m = size_m;
+
+    char* new_data = new char[capacity_m];
+
+    for (size_t i = 0; i < size_m; ++i) {
+        new_data[i] = data_m[i];
+    }
+    delete[] data_m;
+
+    data_m = new_data;
+
+}
+
+//!!!
+void my_str_t::resize(size_t new_size, char new_char = ' ') {
+    // is this valid???
+    if (new_size < size_m) {
+        size_m = new_size;
+    } else if (new_size > size_m && new_size <= capacity_m) {
+        for (size_t i = size_m; i < new_size; ++i) {
+            data_m[i] = new_char;
+        }
+    } else {
+        this->reserve(new_size);
+        for (size_t i = size_m; i < new_size; ++i) {
+            data_m[i] = new_char;
+        }
+    }
 }
 
 my_str_t::~my_str_t() {
