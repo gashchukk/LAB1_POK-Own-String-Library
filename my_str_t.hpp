@@ -22,7 +22,7 @@ public:
     my_str_t& operator=(const my_str_t& mystr);
 
     // обмінює вміст стрічки з other за допомогою вказівників
-//    void swap(my_str_t& other) noexcept;
+    void swap(my_str_t& other) noexcept;
 
     // два варіанти оператора індексації
     char& operator[](size_t idx);
@@ -67,10 +67,10 @@ public:
 //    return stream;
 //}
 
-std::istream& operator>>(std::istream& stream, my_str_t& str) {
+//std::istream& operator>>(std::istream& stream, my_str_t& str) {
 //    #error "Please implement the input, check every function, and remove this line!"
-    return stream;
-}
+//    return stream;
+//}
 
 bool operator==(const my_str_t& str1, const my_str_t& str2);
 bool operator!=(const my_str_t& str1, const my_str_t& str2);

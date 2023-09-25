@@ -57,7 +57,8 @@ include(cmake/CompilerWarnings.cmake)
 #! Project main executable source compilation
 #add_executable(${PROJECT_NAME} main.cpp
 #				options_parser/options_parser.cpp options_parser/options_parser.h)
-
+add_executable(${PROJECT_NAME} main.cpp
+		my_str_t.cpp my_str_t.hpp)
 #! Put path to your project headers
 #target_include_directories(${PROJECT_NAME} PRIVATE options_parser)
 
@@ -71,9 +72,9 @@ include(cmake/CompilerWarnings.cmake)
 # Fixed CMakeLists.txt part
 ##########################################################
 
-INSTALL(PROGRAMS
-		$<TARGET_FILE:${PROJECT_NAME}> # ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}
-		DESTINATION bin)
+#INSTALL(PROGRAMS
+#		$<TARGET_FILE:${PROJECT_NAME}> # ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}
+#		DESTINATION bin)
 
 # Define ALL_TARGETS variable to use in PVS and Sanitizers
 set(ALL_TARGETS ${PROJECT_NAME})
