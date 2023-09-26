@@ -45,16 +45,16 @@ public:
     void erase(size_t begin, size_t size);
 
     // повертають розмір стрічки та зарезервований блок пам'яті
-//    size_t size() const noexcept;
-//    size_t capacity() const noexcept;
+    size_t size() const noexcept;
+    size_t capacity() const noexcept;
 
     // повертає вказівник на С-стрічку
-//    const char* c_str() const noexcept;
+    const char* c_str() const noexcept;
 
-//    static constexpr size_t not_found = -1;
-//    size_t find(char c, size_t idx = 0);
-//    size_t find(const std::string& str, size_t idx = 0);
-//    size_t find(const char* cstr, size_t idx = 0);
+    static constexpr size_t not_found = -1;
+    size_t find(char c, size_t idx = 0);
+    size_t find(const std::string& str, size_t idx = 0);
+    size_t find(const char* cstr, size_t idx = 0);
 
 
     my_str_t substr(size_t begin, size_t size) ;
@@ -62,10 +62,10 @@ public:
 };
 
 // оператори вводу та виводу
-//std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
-//    stream << str.c_str();
-//    return stream;
-//}
+std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
+    stream << str.c_str();
+    return stream;
+}
 
 //std::istream& operator>>(std::istream& stream, my_str_t& str) {
 //    #error "Please implement the input, check every function, and remove this line!"
