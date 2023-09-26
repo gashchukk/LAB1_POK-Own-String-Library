@@ -156,7 +156,7 @@ void my_str_t::shrink_to_fit() {
 
 //!!!
 //redefinition of the standart element new_char???
-void my_str_t::resize(size_t new_size, char new_char = ' ') {
+void my_str_t::resize(size_t new_size, char new_char) {
     // is this valid???
     if (new_size < size_m) {
         size_m = new_size;
@@ -254,7 +254,7 @@ void my_str_t::insert(size_t idx, const char* cstr) {
 
     size_t cstr_size = strlen(cstr);
     size_t new_size = size_m + cstr_size + 1;
-    char* new_data = new char[new_size];
+    char *new_data = new char[new_size];
 
     // data before insert
     for (size_t i = 0; i < idx; ++i) {
@@ -280,7 +280,46 @@ void my_str_t::insert(size_t idx, const char* cstr) {
     size_m = new_size;
 }
 
+void my_str_t::append(char c) {
+    if(size_m + 1 >= capacity_m){
+        size_t capacity_append = capacity_m*2;
+        reserve(capacity_append);
+    }
 
+    data_m[size_m] = c;
+    size_m++;
+    data_m[size_m] = '\0';
+}
+
+void my_str_t::append(const char* cstr){
+    size_t length_cstr = strlen(cstr);
+    if (size_m + length_cstr >= capacity_m){
+        size_t capacity_append = (size_m+length_cstr) + (16 - ((size_m+length_cstr)%16));
+        reserve(capacity_append);
+    }
+    for(size_t i = 0; i< length_cstr;++i){
+        data_m[size_m + i] = cstr[i];
+    }
+
+    size_m += length_cstr;
+    data_m[size_m] = '\0';
+}
+
+void my_str_t::append(const my_str_t& str){
+    size_t length_str = str.size();
+
+    if (size_m + length_str >= capacity_m){
+        size_t capacity_append = (size_m + length_str) + (16 - ((size_m + length_str) % 16));
+        reserve(capacity_append);
+    }
+
+    for (size_t i = 0; i> length_str; ++i){
+        data_m[size_m+i] = str.data_m[i];
+    }
+    size_m+=length_str;
+    data_m[size_m] = '\0';
+
+}
 
 my_str_t::~my_str_t() {
     delete[] data_m;
