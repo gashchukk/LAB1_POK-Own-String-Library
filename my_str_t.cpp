@@ -114,11 +114,17 @@ const char& my_str_t::operator[](size_t idx) const {
 
 // те ж, що й оператори []
 char& my_str_t::at(size_t idx) {
-
+    if (idx >= size_m) {
+        throw std::out_of_range("Index out of range");
+    }
+    return data_m[idx];
 }
 
 const char& my_str_t::at(size_t idx) const {
-
+    if (idx >= size_m) {
+        throw std::out_of_range("Index out of range");
+    }
+    return data_m[idx];
 }
 
 void my_str_t::reserve(size_t new_capacity) {
