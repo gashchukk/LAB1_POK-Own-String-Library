@@ -14,15 +14,15 @@ private:
     size_t size_m;
 public:
     my_str_t(size_t size, char initial);
-    my_str_t(const char* cstr); // копіює вміст С-стрічки, вимоги до capacity_m - ті ж що вище
-    my_str_t(const std::string& str);
+     my_str_t(const char* cstr); // копіює вміст С-стрічки, вимоги до capacity_m - ті ж що вище
+   my_str_t(const std::string& str);
     my_str_t(const my_str_t& mystr); // конструктор копіювання
 
     // оператор присвоєння
-    my_str_t& operator=(const my_str_t& mystr);
+   my_str_t& operator=(const my_str_t& mystr);
 
     // обмінює вміст стрічки з other за допомогою вказівників
-    void swap(my_str_t& other) noexcept;
+     void swap(my_str_t& other) noexcept;
 
     // два варіанти оператора індексації
     char& operator[](size_t idx);
@@ -39,22 +39,21 @@ public:
     void insert(size_t idx, const my_str_t& str);
     void insert(size_t idx, char c);
     void insert(size_t idx, const char* cstr);
-    void append(const my_str_t& str);
+    void append(const my_str_t& str)
     void append(char c);
     void append(const char* cstr);
     void erase(size_t begin, size_t size);
 
     // повертають розмір стрічки та зарезервований блок пам'яті
-//    size_t size() const noexcept;
-//    size_t capacity() const noexcept;
-
+    size_t size() const noexcept;
+   size_t capacity() const noexcept;
     // повертає вказівник на С-стрічку
-//    const char* c_str() const noexcept;
+   const char* c_str() const noexcept;
 
-//    static constexpr size_t not_found = -1;
-//    size_t find(char c, size_t idx = 0);
-//    size_t find(const std::string& str, size_t idx = 0);
-//    size_t find(const char* cstr, size_t idx = 0);
+   static constexpr size_t not_found = -1;
+   size_t find(char c, size_t idx = 0);
+    size_t find(const std::string& str, size_t idx = 0);
+    size_t find(const char* cstr, size_t idx = 0);
 
 
     my_str_t substr(size_t begin, size_t size) ;
@@ -62,15 +61,15 @@ public:
 };
 
 // оператори вводу та виводу
-//std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
-//    stream << str.c_str();
-//    return stream;
-//}
+std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
+    stream << str.c_str();
+    return stream;
+}
 
-//std::istream& operator>>(std::istream& stream, my_str_t& str) {
-//    #error "Please implement the input, check every function, and remove this line!"
-//    return stream;
-//}
+/*std::istream& operator>>(std::istream& stream, my_str_t& str) {
+   #error "Please implement the input, check every function, and remove this line!"
+    return stream;
+}*/
 
 bool operator==(const my_str_t& str1, const my_str_t& str2);
 bool operator!=(const my_str_t& str1, const my_str_t& str2);
@@ -78,6 +77,7 @@ bool operator>(const my_str_t& str1, const my_str_t& str2);
 bool operator>=(const my_str_t& str1, const my_str_t& str2);
 bool operator<(const my_str_t& str1, const my_str_t& str2);
 bool operator<=(const my_str_t& str1, const my_str_t& str2);
+
 
 bool operator==(const my_str_t& str1, const char* cstr2);
 bool operator!=(const my_str_t& str1, const char* cstr2);

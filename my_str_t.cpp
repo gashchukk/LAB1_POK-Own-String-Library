@@ -189,9 +189,165 @@ void my_str_t::append(const my_str_t& str){
 
 }
 
+//Bohdan's part
+bool operator==(const my_str_t& str1, const my_str_t& str2){
+    const char* CString1 = str1.c_str();
+    const char* CString2 = str2.c_str();
+    int i=0;
+    while(CString1[i] !='\0' && CString2[i] !='\0'){
+        if(CString1[i] != CString2[i]){
+            return 0;
+        }
+        ++i;
+    }
+    return 1;
 
-
-
+}
+bool operator!=(const my_str_t& str1, const my_str_t& str2){
+    const char* CString1 = str1.c_str();
+    const char* CString2 = str2.c_str();
+    int i=0;
+    while(CString1[i] !='\0' && CString2[i] !='\0'){
+        if(CString1[i] == CString2[i]){
+            return 0;
+        }
+        ++i;
+    }
+    return 1;
+}
+bool operator> (const my_str_t& str1, const my_str_t& str2){
+    const char* CString1 = str1.c_str();
+    const char* CString2 = str2.c_str();
+    if(CString1.size() > CString2.size()){
+        return 1;
+    }else
+        return 0;
+}
+bool operator>=(const my_str_t& str1, const my_str_t& str2){
+    const char* CString1 = str1.c_str();
+    const char* CString2 = str2.c_str();
+    if(CString1.size() >= CString2.size()){
+        return 1;
+    }else
+        return 0;
+}
+bool operator< (const my_str_t& str1, const my_str_t& str2){
+    const char* CString1 = str1.c_str();
+    const char* CString2 = str2.c_str();
+    if(CString1.size() < CString2.size()){
+        return 1;
+    }else
+        return 0;
+}
+bool operator<=(const my_str_t& str1, const my_str_t& str2){
+    const char* CString1 = str1.c_str();
+    const char* CString2 = str2.c_str();
+    if(CString1.size() <= CString2.size()){
+        return 1;
+    }else
+        return 0;
+}
+// Now Goes str vs const str
+bool operator==(const my_str_t& str1, const char* cstr2){
+    const char* CString1 = str1.c_str();
+    int i=0;
+    while(CString1[i] !='\0' && cstr2[i] !='\0'){
+        if(CString1[i] != cstr2[i]){
+            return 0;
+        }
+        ++i;
+    }
+    return 1;
+}
+bool operator!=(const my_str_t& str1, const char* cstr2){
+    const char* CString1 = str1.c_str();
+    int i=0;
+    while(CString1[i] !='\0' && cstr2[i] !='\0'){
+        if(CString1[i] == cstr2[i]){
+            return 0;
+        }
+        ++i;
+    }
+    return 1;
+}
+bool operator>(const my_str_t& str1, const char* cstr2){
+    const char* CString1 = str1.c_str();
+    if(CString1.size() > cstr2.size()){
+        return 1;
+    }else
+        return 0;
+}
+bool operator>=(const my_str_t& str1, const char* cstr2){
+    const char* CString1 = str1.c_str();
+    if(CString1.size() >= cstr2.size()){
+        return 1;
+    }else
+        return 0;
+}
+bool operator<(const my_str_t& str1, const char* cstr2){
+    const char* CString1 = str1.c_str();
+    if(CString1.size() < cstr2.size()){
+        return 1;
+    }else
+        return 0;
+}
+bool operator<=(const my_str_t& str1, const char* cstr2){
+    const char* CString1 = str1.c_str();
+    if(CString1.size() <= cstr2.size()){
+        return 1;
+    }else
+        return 0;
+}
+ //the next one goes const str vs str
+ bool operator==(const char* cstr1, const my_str_t& str2){
+     const char* CString2 = str2.c_str();
+     int i=0;
+     while(cstr1[i] !='\0' && CString2[i] !='\0'){
+         if(cstr1[i] != CString2[i]){
+             return 0;
+         }
+         ++i;
+     }
+     return 1;
+ }
+bool operator!=(const char* cstr1, const my_str_t& str2){
+    const char* CString2 = str2.c_str();
+    int i=0;
+    while(cstr1[i] !='\0' && CString2[i] !='\0'){
+        if(cstr1[i] == CString2[i]){
+            return 0;
+        }
+        ++i;
+    }
+}
+bool operator>(const char* cstr1, const my_str_t& str2){
+    const char* CString2 = str2.c_str();
+    if(cstr1.size() > CString2.size()){
+        return 1;
+    }else
+        return 0;
+}
+bool operator>=(const char* cstr1, const my_str_t& str2){
+    const char* CString2 = str2.c_str();
+    if(cstr1.size() >= CString2.size()){
+        return 1;
+    }else
+        return 0;
+}
+bool operator<(const char* cstr1, const my_str_t& str2){
+    const char* CString2 = str2.c_str();
+    if(cstr1.size() < CString2.size()){
+        return 1;
+    }else
+        return 0;
+}
+bool operator<=(const char* cstr1, const my_str_t& str2){
+    const char* CString2 = str2.c_str();
+    if(cstr1.size() <= CString2.size()){
+        return 1;
+    }else
+        return 0;
+}
 
 my_str_t::~my_str_t() {
     delete[] data_m;
