@@ -34,6 +34,20 @@ my_str_t::my_str_t(size_t size, char initial) {
     }
 }
 
+size_t size() const noexcept{
+    return length;
+}
+
+//!!!!!!!!!!!!!!! подивитись чому на const ругається і чого на capacity
+
+size_t my_str_t::capacity() const noexcept{
+    return capacity;
+}
+
+const char* my_str_t::c_str() const noexcept{
+    return data_m;
+}
+
 my_str_t::my_str_t(const char* cstr) {
     size_t string_length = strlen(cstr);
     size_m = string_length;
@@ -321,7 +335,6 @@ void my_str_t::append(const my_str_t& str){
 
 }
 
-<<<<<<< HEAD
 //Bohdan's part
 bool operator==(const my_str_t& str1, const my_str_t& str2){
     const char* CString1 = str1.c_str();
@@ -482,8 +495,60 @@ bool operator<=(const char* cstr1, const my_str_t& str2){
         return 0;
 }
 
-=======
->>>>>>> bc2a9cdfe4c2863bf36f36e29f728da35215da9b
+size_t my_str_t::find(char c, size_t idx){ //перший find
+    if (idx >= size_m){
+        return false;
+    }
+    for (size_t i = idx; i < size_m; ++i){
+        if(data_m[i] == c){
+            return i;
+        }
+        return false;// якшо не знайшли
+    }
+}
+
+size_t my_str_t::find(const std::string& str, size_t idx){
+    size_t substring = str.length();
+
+    if(idx >= size_m or substring == 0){
+        return -1;
+    }
+
+    for (size_t i = idx; i<=size_m - substring; ++i){
+        bool match = true;
+        for(size_t j = 0; j < substring; ++j){
+            if(data_m[i+j] != str[j]){
+                match = false;
+                break;
+            }
+        }
+        if(match){
+            return i;
+        }
+    }
+    return -1;
+}
+
+size_t my_str_t::find(const char* cstr, size_t idx){ //третій find, за аналогією з попереднім
+    size_t cstr_size = strlen(cstr);
+    if (cstr_size == 0 or idx > size_m){
+        return -1;
+    }
+    for(size_t i = idx; i <= size_m - cstr_size; ++i){
+        bool match = true;
+        for(size_t j = 0; j< cstr_size; j++){
+            if(data_m[i+j] != cstr[j]){
+                match = false;
+                break;
+            }
+        }
+        if(match){
+            return i;
+        }
+    }
+    return -1;
+}
+
 my_str_t::~my_str_t() {
     delete[] data_m;
 }

@@ -14,8 +14,8 @@ private:
     size_t size_m;
 public:
     my_str_t(size_t size, char initial);
-     my_str_t(const char* cstr); // копіює вміст С-стрічки, вимоги до capacity_m - ті ж що вище
-   my_str_t(const std::string& str);
+    my_str_t(const char* cstr); // копіює вміст С-стрічки, вимоги до capacity_m - ті ж що вище
+    my_str_t(const std::string& str);
     my_str_t(const my_str_t& mystr); // конструктор копіювання
 
     // оператор присвоєння
@@ -46,14 +46,13 @@ public:
 
     // повертають розмір стрічки та зарезервований блок пам'яті
     size_t size() const noexcept;
-<<<<<<< HEAD
+    size_t size() const noexcept;
    size_t capacity() const noexcept;
     // повертає вказівник на С-стрічку
    const char* c_str() const noexcept;
 
    static constexpr size_t not_found = -1;
    size_t find(char c, size_t idx = 0);
-=======
     size_t capacity() const noexcept;
 
     // повертає вказівник на С-стрічку
@@ -61,7 +60,6 @@ public:
 
     static constexpr size_t not_found = -1;
     size_t find(char c, size_t idx = 0);
->>>>>>> bc2a9cdfe4c2863bf36f36e29f728da35215da9b
     size_t find(const std::string& str, size_t idx = 0);
     size_t find(const char* cstr, size_t idx = 0);
 
