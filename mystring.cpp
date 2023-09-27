@@ -2,7 +2,7 @@
 // Created by Shuma on 22.09.2023.
 //
 
-#include "my_str_t.hpp"
+#include "mystring.hpp"
 
 my_str_t::my_str_t(size_t size, char initial) {
     size_m = size + 1;
