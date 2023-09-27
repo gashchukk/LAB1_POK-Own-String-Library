@@ -46,15 +46,15 @@ public:
 
     // повертають розмір стрічки та зарезервований блок пам'яті
 //    size_t size() const noexcept;
-//    size_t capacity() const noexcept;
+    size_t capacity() const noexcept;
 
     // повертає вказівник на С-стрічку
-//    const char* c_str() const noexcept;
+    const char* c_str() const noexcept;
 
-//    static constexpr size_t not_found = -1;
-//    size_t find(char c, size_t idx = 0);
-//    size_t find(const std::string& str, size_t idx = 0);
-//    size_t find(const char* cstr, size_t idx = 0);
+    static constexpr size_t not_found = -1;
+    size_t find(char c, size_t idx = 0);
+    size_t find(const std::string& str, size_t idx = 0);
+    size_t find(const char* cstr, size_t idx = 0);
 
 
     my_str_t substr(size_t begin, size_t size) ;
