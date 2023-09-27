@@ -46,6 +46,7 @@ public:
 
     // повертають розмір стрічки та зарезервований блок пам'яті
 //    size_t size() const noexcept;
+    size_t size() const noexcept;
     size_t capacity() const noexcept;
 
     // повертає вказівник на С-стрічку
@@ -62,10 +63,10 @@ public:
 };
 
 // оператори вводу та виводу
-//std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
-//    stream << str.c_str();
-//    return stream;
-//}
+std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
+    stream << str.c_str();
+    return stream;
+}
 
 //std::istream& operator>>(std::istream& stream, my_str_t& str) {
 //    #error "Please implement the input, check every function, and remove this line!"
