@@ -307,6 +307,7 @@ void my_str_t::append(char c) {
 
 void my_str_t::append(const char* cstr){
     size_t length_cstr = strlen(cstr);
+
     if (size_m + length_cstr >= capacity_m){
         size_t capacity_append = (size_m+length_cstr) + (16 - ((size_m+length_cstr)%16));
         reserve(capacity_append);
@@ -333,6 +334,21 @@ void my_str_t::append(const my_str_t& str){
     size_m+=length_str;
     data_m[size_m] = '\0';
 
+}
+
+//erase
+
+void my_str_t::erase(size_t begin, size_t size) {
+    if(size + begin > size_m){
+        size = size_m - begin;
+    }
+
+    for(size_t i = begin; i < size_m - size; ++i){
+        data_m[i] = data_m[size + i];
+    }
+
+    size_m = size_m - size;
+    data_m[size_m] = '\0';
 }
 
 <<<<<<< HEAD
@@ -388,6 +404,26 @@ size_t my_str_t::find(const char* cstr, size_t idx){ //третій find, за �
         }
     }
     return -1;
+}
+
+my_str_t my_str_t::substr(size_t begin, size_t size) {
+    if (size + begin > size_m){
+        size = size_m - begin;
+    }
+
+    //створимо нову сабстрінгу
+    char* new_str = new char[size + 1];
+
+    //перекопіюємо в неї симовли
+    for (size_t i = 0; i < size; ++i){
+        new_data[i] = data_m[begin + i];
+    }
+
+    new_str[size] = '\0';
+    my_str_t result(new_str);
+    delete[] new_str; // обов'язково звільняємо пам'ять
+
+    return result;
 }
 
 my_str_t::~my_str_t() {
