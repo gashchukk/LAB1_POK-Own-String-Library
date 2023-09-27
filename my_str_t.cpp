@@ -40,6 +40,7 @@ my_str_t::my_str_t(const char* cstr) {
     capacity_m = string_length + 1;
     data_m = new char[capacity_m];
 
+    // strcpy можна використовувати ???
     strcpy(data_m, cstr);
 
     data_m[size_m] = '\0';
@@ -98,6 +99,28 @@ void my_str_t::swap(my_str_t& other) noexcept {
     std::swap(capacity_m, other.capacity_m);
 }
 
+// два варіанти оператора індексації
+char& my_str_t::operator[](size_t idx) {
+     return data_m[idx];
+}
+
+const char& my_str_t::operator[](size_t idx) const {
+    // не треба це використовувати ???
+//    if (idx >= size_m) {
+//        throw std::out_of_range("Index out of range");
+//    }
+    return data_m[idx];
+}
+
+// те ж, що й оператори []
+char& my_str_t::at(size_t idx) {
+
+}
+
+const char& my_str_t::at(size_t idx) const {
+
+}
+
 void my_str_t::reserve(size_t new_capacity) {
     if (new_capacity <= capacity_m) {
         return;
@@ -132,7 +155,8 @@ void my_str_t::shrink_to_fit() {
 }
 
 //!!!
-void my_str_t::resize(size_t new_size, char new_char = ' ') {
+//redefinition of the standart element new_char???
+void my_str_t::resize(size_t new_size, char new_char) {
     // is this valid???
     if (new_size < size_m) {
         size_m = new_size;
@@ -146,6 +170,114 @@ void my_str_t::resize(size_t new_size, char new_char = ' ') {
             data_m[i] = new_char;
         }
     }
+}
+
+// ???
+void my_str_t::clear() {
+    // is this legal???
+    size_m = 0;
+    // ??
+    data_m[0] = '\0';
+}
+
+void my_str_t::insert(size_t idx, const my_str_t& str) {
+    if (idx > size_m) {
+        throw std::out_of_range("Index out of range");
+    }
+
+    size_t new_size = size_m + str.size_m;
+
+    if (new_size > capacity_m) {
+        capacity_m = new_size;
+    }
+
+    char* new_data = new char[new_size + 1];
+
+    // data before insert
+    for (size_t i = 0; i < idx; ++i) {
+        new_data[i] = data_m[i];
+    }
+
+    // insert data
+    for (size_t i = 0; i < str.size_m; ++i) {
+        new_data[idx + i] = str.data_m[i];
+    }
+
+    // after insert data
+    for (size_t i = idx; i < size_m; ++i) {
+        new_data[idx + str.size_m + i] = data_m[i];
+    }
+
+    new_data[new_size] = '\0';
+
+    delete[] data_m;
+
+    data_m = new_data;
+    data_m = new_data;
+    size_m = new_size;
+}
+
+// ?? чи буде це працювати чи треба один символ додати?
+void my_str_t::insert(size_t idx, char c) {
+    // ця функція служить для оптимізації, щоб не довелось
+    // спочатку створювати із літери c стрічку my_str_t а
+    // потім вставляти. Навіть якщо компілятор зробив би це
+    // автоматично - це повільно
+
+    if (idx > size_m) {
+        throw std::out_of_range("Index out of range");
+    }
+
+    size_t new_size = size_m + 1;
+
+    // Перевірка, чи не потрібно збільшити capacity_m
+    if (new_size > capacity_m) {
+        reserve(new_size);
+    }
+
+    // Переміщення даних на один елемент вправо
+    for (size_t i = size_m; i > idx; --i) {
+        data_m[i] = data_m[i - 1];
+    }
+
+    data_m[idx] = c;
+
+    size_m = new_size;
+    data_m[size_m] = '\0';
+}
+
+// Check if it works!!!
+void my_str_t::insert(size_t idx, const char* cstr) {
+    if (idx > size_m) {
+        throw std::out_of_range("Index out of range");
+    }
+
+    size_t cstr_size = strlen(cstr);
+    size_t new_size = size_m + cstr_size + 1;
+    char *new_data = new char[new_size];
+
+    // data before insert
+    for (size_t i = 0; i < idx; ++i) {
+        new_data[i] = data_m[i];
+    }
+
+    // insert data
+    for (size_t i = 0; i < cstr_size; ++i) {
+        new_data[idx + i] = cstr[i];
+    }
+
+    // after insert data
+    for (size_t i = idx; i < size_m; ++i) {
+        new_data[idx + cstr_size + i] = data_m[i];
+    }
+
+    new_data[new_size] = '\0';
+
+    delete[] data_m;
+
+    data_m = new_data;
+    data_m = new_data;
+    size_m = new_size;
 }
 
 void my_str_t::append(char c) {
@@ -174,7 +306,7 @@ void my_str_t::append(const char* cstr){
 }
 
 void my_str_t::append(const my_str_t& str){
-    size_t length_str = strlen(str);
+    size_t length_str = str.size();
 
     if (size_m + length_str >= capacity_m){
         size_t capacity_append = (size_m + length_str) + (16 - ((size_m + length_str) % 16));
@@ -189,6 +321,7 @@ void my_str_t::append(const my_str_t& str){
 
 }
 
+<<<<<<< HEAD
 //Bohdan's part
 bool operator==(const my_str_t& str1, const my_str_t& str2){
     const char* CString1 = str1.c_str();
@@ -349,6 +482,8 @@ bool operator<=(const char* cstr1, const my_str_t& str2){
         return 0;
 }
 
+=======
+>>>>>>> bc2a9cdfe4c2863bf36f36e29f728da35215da9b
 my_str_t::~my_str_t() {
     delete[] data_m;
 }
