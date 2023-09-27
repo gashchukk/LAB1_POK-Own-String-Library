@@ -58,7 +58,7 @@ include(cmake/CompilerWarnings.cmake)
 #add_executable(${PROJECT_NAME} main.cpp
 #				options_parser/options_parser.cpp options_parser/options_parser.h)
 add_executable(${PROJECT_NAME} main.cpp
-		my_str_t.cpp my_str_t.hpp)
+		mystring.cpp mystring.hpp)
 #! Put path to your project headers
 #target_include_directories(${PROJECT_NAME} PRIVATE options_parser)
 

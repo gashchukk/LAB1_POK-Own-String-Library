@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 #include <iostream>
-#include "my_str_t.hpp"
+#include "mystring.hpp"
 
 int main(int argc, char* argv[]) {
     my_str_t s(1, 'A');
