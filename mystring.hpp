@@ -91,6 +91,6 @@ bool operator>=(const char* cstr1, const my_str_t& str2);
 bool operator<(const char* cstr1, const my_str_t& str2);
 bool operator<=(const char* cstr1, const my_str_t& str2);
 
-std::istream& read_line(std::istream& stream, my_str_t& str);
+std::istream& readline(std::istream& stream, my_str_t& str);
 
 #endif //LAB1_CSTRING_SHUMSKYI_HASHCHUK_MY_STR_T_H
