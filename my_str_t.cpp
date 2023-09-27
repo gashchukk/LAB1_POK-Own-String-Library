@@ -330,3 +330,24 @@ void my_str_t::append(const my_str_t& str){
 my_str_t::~my_str_t() {
     delete[] data_m;
 }
+
+// оператори вводу та виводу
+std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
+    const char* str_data = str.c_str();
+
+    for (size_t i = 0; i < str.size(); ++i) {
+        stream << str_data[i];
+    }
+
+    return stream;
+}
+
+std::istream& operator>>(std::istream& stream, my_str_t& str) {
+//    #error "Please implement the input, check every function, and remove this line!"
+    for (size_t i = 0; i < str.size(); ++i) {
+        if (!std::isspace(str[i])) {
+            stream >> str[i];
+        }
+    }
+    return stream;
+}

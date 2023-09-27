@@ -62,15 +62,9 @@ public:
 };
 
 // оператори вводу та виводу
-std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
-    stream << str.c_str();
-    return stream;
-}
+std::ostream& operator<<(std::ostream& stream, const my_str_t& str);
 
-//std::istream& operator>>(std::istream& stream, my_str_t& str) {
-//    #error "Please implement the input, check every function, and remove this line!"
-//    return stream;
-//}
+std::istream& operator>>(std::istream& stream, my_str_t& str);
 
 bool operator==(const my_str_t& str1, const my_str_t& str2);
 bool operator!=(const my_str_t& str1, const my_str_t& str2);
