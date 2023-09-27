@@ -5,53 +5,31 @@
 #include "my_str_t.hpp"
 
 my_str_t::my_str_t(size_t size, char initial) {
-    // Створює стрічку із size копій літери initial
-    // capacity_m встановлюється рівним або більшим за size
-    // Обробка помилок конструкторами:
-    //  Не повинні заважати пропагуванню виключення
-    //  std::bad_alloc
+    size_m = size + 1;
+    capacity_m = size + (16 - (size%16));
+    data_m = new char[capacity_m];
 
-
-//    можливо варто так робити?
-//    for(){
-//        *(data_m + i) = initial
-//    }
-
-    try {
-        size_m = size + 1;
-//        capacity_m = size;
-        capacity_m = size_m + (16 - (size_m%16));
-        data_m = new char[size_m];
-
-        memset(data_m, initial, size);
-        data_m[size] = '\0';
-
-    } catch (std::bad_alloc){
-        data_m = nullptr;
-        capacity_m = 0;
-        size_m = 0;
-        // throw
-    }
+    memset(data_m, initial, size);
+    data_m[size - 1] = '\0';
 }
 
 my_str_t::my_str_t(const char* cstr) {
     size_t string_length = strlen(cstr);
-    size_m = string_length;
-    capacity_m = string_length + 1;
+    size_m = string_length + 1;
+    capacity_m = string_length + (16 - (string_length%16));
     data_m = new char[capacity_m];
 
-    // strcpy можна використовувати ???
-    strcpy(data_m, cstr);
+    for (size_t i = 0; i < size_m - 1; ++i) {
+        data_m[i] = cstr[i];
+    }
 
     data_m[size_m] = '\0';
 }
 
 my_str_t::my_str_t(const std::string& str) {
-    // копіює стрічку c++, вимоги до capacity_m ті що й вище
-    capacity_m = str.size() + (16 - (str.size()%16));
-    size_t string_length = str.length();
-    size_m = string_length;
-//    capacity_m = string_length + 1;
+    size_t string_length = str.size();
+    capacity_m = string_length + (16 - (string_length%16));
+    size_m = string_length + 1;
     data_m = new char[capacity_m];
 
     for (size_t i = 0; i < size_m; ++i) {
@@ -59,7 +37,6 @@ my_str_t::my_str_t(const std::string& str) {
     }
 
     data_m[size_m] = '\0';
-
 }
 
 my_str_t::my_str_t(const my_str_t& mystr) {
@@ -69,10 +46,14 @@ my_str_t::my_str_t(const my_str_t& mystr) {
     for (size_t i = 0; i < size_m; ++i) {
         data_m[i] = mystr.data_m[i];
     }
+    data_m[size_m] = '\0';
 }
 
 my_str_t& my_str_t::operator=(const my_str_t& mystr) {
-//    оператор присвоєння
+    if (this == &mystr) {
+        return *this;
+    }
+
     delete[] data_m;
 
     capacity_m = mystr.capacity_m;
@@ -90,29 +71,20 @@ my_str_t& my_str_t::operator=(const my_str_t& mystr) {
 //my_str_t& my_str_t::operator=(my_str_t&& mystr);
 
 void my_str_t::swap(my_str_t& other) noexcept {
-    // обмінює вміст цієї стрічки із other, за допомогою
-    // обміну вказівників
-
     // взагалі легально???
     std::swap(data_m, other.data_m);
     std::swap(size_m, other.size_m);
     std::swap(capacity_m, other.capacity_m);
 }
 
-// два варіанти оператора індексації
 char& my_str_t::operator[](size_t idx) {
      return data_m[idx];
 }
 
 const char& my_str_t::operator[](size_t idx) const {
-    // не треба це використовувати ???
-//    if (idx >= size_m) {
-//        throw std::out_of_range("Index out of range");
-//    }
     return data_m[idx];
 }
 
-// те ж, що й оператори []
 char& my_str_t::at(size_t idx) {
     if (idx >= size_m) {
         throw std::out_of_range("Index out of range");
@@ -147,7 +119,7 @@ void my_str_t::shrink_to_fit() {
     if (capacity_m == size_m) {
         return;
     }
-    capacity_m = size_m;
+    capacity_m = size_m + (16 - (size_m % 16));
 
     char* new_data = new char[capacity_m];
 
@@ -157,13 +129,9 @@ void my_str_t::shrink_to_fit() {
     delete[] data_m;
 
     data_m = new_data;
-
 }
 
-//!!!
-//redefinition of the standart element new_char???
 void my_str_t::resize(size_t new_size, char new_char) {
-    // is this valid???
     if (new_size < size_m) {
         size_m = new_size;
     } else if (new_size > size_m && new_size <= capacity_m) {
@@ -178,12 +146,10 @@ void my_str_t::resize(size_t new_size, char new_char) {
     }
 }
 
-// ???
 void my_str_t::clear() {
-    // is this legal???
     size_m = 0;
-    // ??
-    data_m[0] = '\0';
+    capacity_m = 16;
+    data_m = new char[size_m];
 }
 
 void my_str_t::insert(size_t idx, const my_str_t& str) {
@@ -324,7 +290,232 @@ void my_str_t::append(const my_str_t& str){
     }
     size_m+=length_str;
     data_m[size_m] = '\0';
+}
 
+size_t my_str_t::size() const noexcept{
+    return size_m;
+}
+
+size_t my_str_t::capacity() const noexcept{
+    return capacity_m;
+}
+
+const char* my_str_t::c_str() const noexcept{
+    return data_m;
+}
+
+//Bohdan's part
+bool operator==(const my_str_t& str1, const my_str_t& str2){
+    const char* CString1 = str1.c_str();
+    const char* CString2 = str2.c_str();
+    int i=0;
+    while(CString1[i] !='\0' && CString2[i] !='\0'){
+        if(CString1[i] != CString2[i]){
+            return 0;
+        }
+        ++i;
+    }
+    return 1;
+
+}
+bool operator!=(const my_str_t& str1, const my_str_t& str2){
+    const char* CString1 = str1.c_str();
+    const char* CString2 = str2.c_str();
+    int i=0;
+    while(CString1[i] !='\0' && CString2[i] !='\0'){
+        if(CString1[i] == CString2[i]){
+            return 0;
+        }
+        ++i;
+    }
+    return 1;
+}
+bool operator> (const my_str_t& str1, const my_str_t& str2){
+    const char* CString1 = str1.c_str();
+    const char* CString2 = str2.c_str();
+    if(strlen(CString1) > strlen(CString2)) {
+        return 1;
+    }else
+        return 0;
+}
+bool operator>=(const my_str_t& str1, const my_str_t& str2){
+    const char* CString1 = str1.c_str();
+    const char* CString2 = str2.c_str();
+    if(strlen(CString1) >= strlen(CString2)) {
+        return 1;
+    }else
+        return 0;
+}
+bool operator< (const my_str_t& str1, const my_str_t& str2){
+    const char* CString1 = str1.c_str();
+    const char* CString2 = str2.c_str();
+    if(strlen(CString1) < strlen(CString2)){
+        return 1;
+    }else
+        return 0;
+}
+bool operator<=(const my_str_t& str1, const my_str_t& str2){
+    const char* CString1 = str1.c_str();
+    const char* CString2 = str2.c_str();
+    if(strlen(CString1) <= strlen(CString2)){
+        return 1;
+    }else
+        return 0;
+}
+// Now Goes str vs const str
+bool operator==(const my_str_t& str1, const char* cstr2){
+    const char* CString1 = str1.c_str();
+    int i=0;
+    while(CString1[i] !='\0' && cstr2[i] !='\0'){
+        if(CString1[i] != cstr2[i]){
+            return 0;
+        }
+        ++i;
+    }
+    return 1;
+}
+bool operator!=(const my_str_t& str1, const char* cstr2){
+    const char* CString1 = str1.c_str();
+    int i=0;
+    while(CString1[i] !='\0' && cstr2[i] !='\0'){
+        if(CString1[i] == cstr2[i]){
+            return 0;
+        }
+        ++i;
+    }
+    return 1;
+}
+bool operator>(const my_str_t& str1, const char* cstr2){
+    const char* CString1 = str1.c_str();
+    if(strlen(CString1) > strlen(cstr2)){
+        return 1;
+    }else
+        return 0;
+}
+bool operator>=(const my_str_t& str1, const char* cstr2){
+    const char* CString1 = str1.c_str();
+    if(strlen(CString1) >= strlen(cstr2)){
+        return 1;
+    }else
+        return 0;
+}
+bool operator<(const my_str_t& str1, const char* cstr2){
+    const char* CString1 = str1.c_str();
+    if(strlen(CString1) < strlen(cstr2)){
+        return 1;
+    }else
+        return 0;
+}
+bool operator<=(const my_str_t& str1, const char* cstr2){
+    const char* CString1 = str1.c_str();
+    if(strlen(CString1) <= strlen(cstr2)){
+        return 1;
+    }else
+        return 0;
+}
+ //the next one goes const str vs str
+ bool operator==(const char* cstr1, const my_str_t& str2){
+     const char* CString2 = str2.c_str();
+     int i=0;
+     while(cstr1[i] !='\0' && CString2[i] !='\0'){
+         if(cstr1[i] != CString2[i]){
+             return 0;
+         }
+         ++i;
+     }
+     return 1;
+ }
+bool operator!=(const char* cstr1, const my_str_t& str2){
+    const char* CString2 = str2.c_str();
+    int i=0;
+    while(cstr1[i] !='\0' && CString2[i] !='\0'){
+        if(cstr1[i] == CString2[i]){
+            return 0;
+        }
+        ++i;
+    }
+}
+bool operator>(const char* cstr1, const my_str_t& str2){
+    const char* CString2 = str2.c_str();
+    if(strlen(cstr1) > strlen(CString2)){
+        return 1;
+    }else
+        return 0;
+}
+bool operator>=(const char* cstr1, const my_str_t& str2){
+    const char* CString2 = str2.c_str();
+    if(strlen(cstr1) >= strlen(CString2)){
+        return 1;
+    }else
+        return 0;
+}
+bool operator<(const char* cstr1, const my_str_t& str2){
+    const char* CString2 = str2.c_str();
+    if(strlen(cstr1) < strlen(CString2)){
+        return 1;
+    }else
+        return 0;
+}
+bool operator<=(const char* cstr1, const my_str_t& str2){
+    const char* CString2 = str2.c_str();
+    if(strlen(cstr1) <= strlen(CString2)){
+        return 1;
+    }else
+        return 0;
+}
+
+size_t my_str_t::find(char c, size_t idx){ //перший find
+    if (idx >= size_m){
+        return false;
+    }
+    for (size_t i = idx; i < size_m; ++i){
+        if(data_m[i] == c){
+            return i;
+        }
+        return false;// якшо не знайшли
+    }
+}
+
+size_t my_str_t::find(const std::string& str, size_t idx){
+    size_t substring = str.length();
+
+    if(idx >= size_m or substring == 0){
+        return -1;
+    }
+
+    for (size_t i = idx; i<=size_m - substring; ++i){
+        bool match = true;
+        for(size_t j = 0; j < substring; ++j){
+            if(data_m[i+j] != str[j]){
+                match = false;
+                break;
+            }
+        }
+        if(match){
+            return i;
+        }
+    }
+    return -1;
+}
+
+size_t my_str_t::find(const char* cstr, size_t idx){ //третій find, за аналогією з попереднім
+    size_t cstr_size = strlen(cstr);
+    if (cstr_size == 0 or idx > size_m){
+        return -1;
+    }
+    for(size_t i = idx; i <= size_m - cstr_size; ++i){
+        bool match = true;
+        for(size_t j = 0; j< cstr_size; j++){
+            if(data_m[i+j] != cstr[j]){
+                match = false;
+                break;
+            }
+        }
+        if(match){
+            return i;
+        }
+    }
+    return -1;
 }
 
 my_str_t::~my_str_t() {
