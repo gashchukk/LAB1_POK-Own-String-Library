@@ -39,7 +39,7 @@ namespace {
     //ASSERT_NO_THROW(my_str_t("c_string"));
     //ASSERT_NO_THROW(my_str_t("c++_string"));
 
-    // should assert 1 out of 2. TODO: rewrite to have one assert
+    // should assert 1 out of 2.
     //ASSERT_ANY_THROW((my_str_t{std::numeric_limits<size_t>::max()/100, 'c'}));
 //}
 
@@ -83,58 +83,59 @@ namespace {
     //EXPECT_EQ(assign_to, assign_this);
 
     //assign_to[0] = 'G';
-
+    //std::cout << assign_to << std::endl;
+    //std::cout << assign_this << std::endl;
     //EXPECT_NE(assign_to, assign_this);
 //}
 
-///*
-// * test swap
-// */
-//TEST_F(ClassDeclaration, swap) {
-//    my_str_t swap_1 = my_str_t("bongiorno, ragazzi!");
-//    my_str_t swap_2 = my_str_t("arrivederci, amici!!!");
-//
-//    EXPECT_EQ(swap_1.size(), 19);
-//    EXPECT_GE(swap_1.capacity(), swap_1.size());
-//
-//    EXPECT_EQ(swap_2.size(), 21);
-//    EXPECT_GE(swap_2.capacity(), swap_2.size());
-//
-//    swap_1.swap(swap_2);
-//
-//    EXPECT_EQ(swap_2.size(), 19);
-//    EXPECT_GE(swap_2.capacity(), swap_2.size());
-//
-//    EXPECT_EQ(swap_1.size(), 21);
-//    EXPECT_GE(swap_1.capacity(), swap_1.size());
-//
-//    EXPECT_EQ(swap_2, my_str_t("bongiorno, ragazzi!"));
-//    EXPECT_EQ(swap_1, my_str_t("arrivederci, amici!!!"));
-//}
-//
-//
-///*
+/*
+ * test swap
+ */
+TEST_F(ClassDeclaration, swap) {
+    my_str_t swap_1 = my_str_t("bongiorno, ragazzi!");
+    my_str_t swap_2 = my_str_t("arrivederci, amici!!!");
+
+    EXPECT_EQ(swap_1.size(), 19);
+    EXPECT_GE(swap_1.capacity(), swap_1.size());
+
+    EXPECT_EQ(swap_2.size(), 21);
+    EXPECT_GE(swap_2.capacity(), swap_2.size());
+
+    swap_1.swap(swap_2);
+
+    EXPECT_EQ(swap_2.size(), 19);
+    EXPECT_GE(swap_2.capacity(), swap_2.size());
+
+    EXPECT_EQ(swap_1.size(), 21);
+    EXPECT_GE(swap_1.capacity(), swap_1.size());
+
+    EXPECT_EQ(swap_2, my_str_t("bongiorno, ragazzi!"));
+    EXPECT_EQ(swap_1, my_str_t("arrivederci, amici!!!"));
+}
+
+
+/*
 // * reserve, shrink_to_fit
 // * reserve - should it change capacity exactly to the given value or can it round the value?
 // */
-//TEST_F(ClassDeclaration, reserve_shrink) {
-//    // reserve
-//    my_str_t test_cap = my_str_t("hi, hi, hi, hi, hi!!!");
-//    EXPECT_EQ(test_cap.size(), 21);
-//    auto prev_cap = test_cap.capacity();
-//    EXPECT_GE(test_cap.capacity(), test_cap.size());
-//
-//    test_cap.reserve(15);
-//    EXPECT_EQ(test_cap.capacity(), prev_cap);
-//
-//    test_cap.reserve(53);
-//    EXPECT_EQ(test_cap.capacity(), 53);
-//
-//    // shrink_to_fit
-//    test_cap.shrink_to_fit();
-//    EXPECT_LT(test_cap.capacity(), 53);
-//}
-//
+TEST_F(ClassDeclaration, reserve_shrink) {
+    // reserve
+    my_str_t test_cap = my_str_t("hi, hi, hi, hi, hi!!!");
+    EXPECT_EQ(test_cap.size(), 21);
+    auto prev_cap = test_cap.capacity();
+    EXPECT_GE(test_cap.capacity(), test_cap.size());
+
+    test_cap.reserve(15);
+    EXPECT_EQ(test_cap.capacity(), prev_cap);
+
+    test_cap.reserve(53);
+    EXPECT_EQ(test_cap.capacity(), 53);
+
+    // shrink_to_fit
+    test_cap.shrink_to_fit();
+    EXPECT_LT(test_cap.capacity(), 53);
+}
+
 ///*
 // *  resize, clear
 // */
@@ -153,6 +154,7 @@ namespace {
 //
 //    test_res.resize(30);
 //    EXPECT_EQ(test_res.size(), 30);
+//
 //    EXPECT_EQ(test_res.capacity(), prev_cap);
 //    EXPECT_EQ(test_res, my_str_t("hi, buongiorno, buonasera     "));
 //
@@ -165,109 +167,109 @@ namespace {
 //    test_res.clear();
 //    EXPECT_EQ(test_res.size(), 0);
 //}
-//
+
 ///*
 // * insert char
 // */
 //
-//TEST_F(ClassDeclaration, insert_char) {
-//    // insert
-//    my_str_t test_insert = my_str_t("hi, hello, hola");
-//    auto my_capacity = 18;
-//    test_insert.reserve(my_capacity);
-//    EXPECT_EQ(test_insert.size(), 15);
-//    EXPECT_GE(test_insert.capacity(), my_capacity);
-//
-//    // insert char inside
-//    test_insert.insert(2, 'i');
-//    EXPECT_EQ(test_insert, my_str_t("hii, hello, hola"));
-//    EXPECT_EQ(test_insert.size(), 16);
-//    EXPECT_GE(test_insert.capacity(), my_capacity);
-//
-//    // insert char at size()
-//    test_insert.insert(test_insert.size(), '!');
-//    EXPECT_EQ(test_insert, my_str_t("hii, hello, hola!"));
-//    EXPECT_EQ(test_insert.size(), 17);
-//    EXPECT_GE(test_insert.capacity(), my_capacity);
-//
-//    // insert char at 0
-//    test_insert.insert(0, 'h');
-//    EXPECT_EQ(test_insert, my_str_t("hhii, hello, hola!"));
-//    EXPECT_EQ(test_insert.size(), 18);
-//    EXPECT_GE(test_insert.capacity(), my_capacity);
-//
-//    // insert char at bad position
-//    EXPECT_THROW(test_insert.insert(test_insert.size()+1, 'h'), std::out_of_range);
-//    EXPECT_EQ(test_insert, my_str_t("hhii, hello, hola!"));
-//    EXPECT_EQ(test_insert.size(), 18);
-//    EXPECT_GE(test_insert.capacity(), my_capacity);
-//
-//    // insert char with extending buffer
-//    test_insert.insert(8, 'l');
-//    EXPECT_EQ(test_insert, my_str_t("hhii, helllo, hola!"));
-//    EXPECT_EQ(test_insert.size(), 19);
-//    EXPECT_GT(test_insert.capacity(), my_capacity);
-//
-//    // insert char in empty string
-//    my_str_t empty_str = my_str_t("");
-//    empty_str.insert(0, 't');
-//    EXPECT_EQ(empty_str, my_str_t("t"));
-//    EXPECT_EQ(empty_str.size(), 1);
-//    EXPECT_GE(empty_str.capacity(), empty_str.size());
-//}
-//
+TEST_F(ClassDeclaration, insert_char) {
+    // insert
+    my_str_t test_insert = my_str_t("hi, hello, hola");
+    auto my_capacity = 18;
+    test_insert.reserve(my_capacity);
+    EXPECT_EQ(test_insert.size(), 15);
+    EXPECT_GE(test_insert.capacity(), my_capacity);
+
+    // insert char inside
+    test_insert.insert(2, 'i');
+    EXPECT_EQ(test_insert, my_str_t("hii, hello, hola"));
+    EXPECT_EQ(test_insert.size(), 16);
+    EXPECT_GE(test_insert.capacity(), my_capacity);
+
+    // insert char at size()
+    test_insert.insert(test_insert.size(), '!');
+    EXPECT_EQ(test_insert, my_str_t("hii, hello, hola!"));
+    EXPECT_EQ(test_insert.size(), 17);
+    EXPECT_GE(test_insert.capacity(), my_capacity);
+
+    // insert char at 0
+    test_insert.insert(0, 'h');
+    EXPECT_EQ(test_insert, my_str_t("hhii, hello, hola!"));
+    EXPECT_EQ(test_insert.size(), 18);
+    EXPECT_GE(test_insert.capacity(), my_capacity);
+
+    // insert char at bad position
+    EXPECT_THROW(test_insert.insert(test_insert.size()+1, 'h'), std::out_of_range);
+    EXPECT_EQ(test_insert, my_str_t("hhii, hello, hola!"));
+    EXPECT_EQ(test_insert.size(), 18);
+    EXPECT_GE(test_insert.capacity(), my_capacity);
+
+    // insert char with extending buffer
+    test_insert.insert(8, 'l');
+    EXPECT_EQ(test_insert, my_str_t("hhii, helllo, hola!"));
+    EXPECT_EQ(test_insert.size(), 19);
+    EXPECT_GT(test_insert.capacity(), my_capacity);
+
+    // insert char in empty string
+    my_str_t empty_str = my_str_t("");
+    empty_str.insert(0, 't');
+    EXPECT_EQ(empty_str, my_str_t("t"));
+    EXPECT_EQ(empty_str.size(), 1);
+    EXPECT_GE(empty_str.capacity(), empty_str.size());
+}
+
 ///*
 // * insert my_str
 // */
-//TEST_F(ClassDeclaration, insert_my_str) {
-//    my_str_t test_insert_my_str = my_str_t("hi, how are you?");
-//    auto my_capacity = test_insert_my_str.capacity() + 16;
-//    test_insert_my_str.reserve(my_capacity);
-//    EXPECT_EQ(test_insert_my_str.size(), 16);
-//    EXPECT_GE(test_insert_my_str.capacity(), my_capacity);
-//
-//    // normal insert
-//    test_insert_my_str.insert(3, my_str_t(" friend,"));
-//    EXPECT_EQ(test_insert_my_str, my_str_t("hi, friend, how are you?"));
-//    EXPECT_EQ(test_insert_my_str.size(), 24);
-//    EXPECT_GE(test_insert_my_str.capacity(), my_capacity);
-//
-//    // insert at the end of the string
-//    test_insert_my_str.insert(test_insert_my_str.size(), my_str_t(" I am fine!"));
-//    EXPECT_EQ(test_insert_my_str, my_str_t("hi, friend, how are you? I am fine!"));
-//    EXPECT_EQ(test_insert_my_str.size(), 35);
-//
-//    // test if capacity increased
-//    EXPECT_GE(test_insert_my_str.capacity(), my_capacity);
-//
-//    // insert at the start of the string
-//    test_insert_my_str.insert(0, my_str_t("hii, "));
-//    EXPECT_EQ(test_insert_my_str, my_str_t("hii, hi, friend, how are you? I am fine!"));
-//    EXPECT_EQ(test_insert_my_str.size(), 40);
-//    EXPECT_GE(test_insert_my_str.capacity(), my_capacity);
-//
-//    // insert empty string
-//    test_insert_my_str.insert(3, my_str_t(""));
-//    EXPECT_EQ(test_insert_my_str, my_str_t("hii, hi, friend, how are you? I am fine!"));
-//    EXPECT_EQ(test_insert_my_str.size(), 40);
-//    EXPECT_GE(test_insert_my_str.capacity(), my_capacity);
-//
-//    // insert in the empty string
-//    my_str_t test_insert_empty = my_str_t("");
-//    EXPECT_EQ(test_insert_empty.size(), 0);
-//    EXPECT_GE(test_insert_empty.capacity(), test_insert_empty.size());
-//    test_insert_empty.insert(0, my_str_t("hi, welcome!"));
-//    EXPECT_EQ(test_insert_empty, my_str_t("hi, welcome!"));
-//    EXPECT_EQ(test_insert_empty.size(), 12);
-//    EXPECT_GE(test_insert_empty.capacity(), test_insert_empty.size());
-//
-//    // insert at wrong position
-//    EXPECT_THROW(test_insert_my_str.insert(100, my_str_t("No:(")), std::out_of_range);
-//    EXPECT_EQ(test_insert_my_str, my_str_t("hii, hi, friend, how are you? I am fine!"));
-//    EXPECT_EQ(test_insert_my_str.size(), 40);
-//    EXPECT_GE(test_insert_my_str.capacity(), my_capacity);
-//}
-//
+TEST_F(ClassDeclaration, insert_my_str) {
+    my_str_t test_insert_my_str = my_str_t("hi, how are you?");
+    auto my_capacity = test_insert_my_str.capacity() + 16;
+    test_insert_my_str.reserve(my_capacity);
+    EXPECT_EQ(test_insert_my_str.size(), 16);
+    EXPECT_GE(test_insert_my_str.capacity(), my_capacity);
+
+    // normal insert
+    test_insert_my_str.insert(3, my_str_t(" friend,"));
+    EXPECT_EQ(test_insert_my_str, my_str_t("hi, friend, how are you?"));
+    EXPECT_EQ(test_insert_my_str.size(), 24);
+    EXPECT_GE(test_insert_my_str.capacity(), my_capacity);
+
+    // insert at the end of the string
+    test_insert_my_str.insert(test_insert_my_str.size(), my_str_t(" I am fine!"));
+    EXPECT_EQ(test_insert_my_str, my_str_t("hi, friend, how are you? I am fine!"));
+    EXPECT_EQ(test_insert_my_str.size(), 35);
+
+    // test if capacity increased
+    EXPECT_GE(test_insert_my_str.capacity(), my_capacity);
+
+    // insert at the start of the string
+    test_insert_my_str.insert(0, my_str_t("hii, "));
+    EXPECT_EQ(test_insert_my_str, my_str_t("hii, hi, friend, how are you? I am fine!"));
+    EXPECT_EQ(test_insert_my_str.size(), 40);
+    EXPECT_GE(test_insert_my_str.capacity(), my_capacity);
+
+    // insert empty string
+    test_insert_my_str.insert(3, my_str_t(""));
+    EXPECT_EQ(test_insert_my_str, my_str_t("hii, hi, friend, how are you? I am fine!"));
+    EXPECT_EQ(test_insert_my_str.size(), 40);
+    EXPECT_GE(test_insert_my_str.capacity(), my_capacity);
+
+    // insert in the empty string
+    my_str_t test_insert_empty = my_str_t("");
+    EXPECT_EQ(test_insert_empty.size(), 0);
+    EXPECT_GE(test_insert_empty.capacity(), test_insert_empty.size());
+    test_insert_empty.insert(0, my_str_t("hi, welcome!"));
+    EXPECT_EQ(test_insert_empty, my_str_t("hi, welcome!"));
+    EXPECT_EQ(test_insert_empty.size(), 12);
+    EXPECT_GE(test_insert_empty.capacity(), test_insert_empty.size());
+
+    // insert at wrong position
+    EXPECT_THROW(test_insert_my_str.insert(100, my_str_t("No:(")), std::out_of_range);
+    EXPECT_EQ(test_insert_my_str, my_str_t("hii, hi, friend, how are you? I am fine!"));
+    EXPECT_EQ(test_insert_my_str.size(), 40);
+    EXPECT_GE(test_insert_my_str.capacity(), my_capacity);
+}
+
 ///*
 // *  insert c string
 // */
