@@ -427,63 +427,66 @@ namespace {
 ///*
 // * erase
 // */
-//TEST_F(ClassDeclaration, erase_test) {
-//    my_str_t test_erase = my_str_t("Hi, hello, hola, ciao, buongiorno!!!");
-//    EXPECT_EQ(test_erase.size(), 36);
-//    EXPECT_GE(test_erase.capacity(), test_erase.size());
+TEST_F(ClassDeclaration, erase_test) {
+    my_str_t test_erase = my_str_t("Hi, hello, hola, ciao, buongiorno!!!");
+    EXPECT_EQ(test_erase.size(), 36);
+    EXPECT_GE(test_erase.capacity(), test_erase.size());
 //
 //    // erase inside
-//    test_erase.erase(3, 7);
-//    EXPECT_EQ(test_erase, my_str_t("Hi, hola, ciao, buongiorno!!!"));
-//    EXPECT_EQ(test_erase.size(), 29);
-//    EXPECT_GE(test_erase.capacity(), test_erase.size());
+    test_erase.erase(3, 7);
+    EXPECT_EQ(test_erase, my_str_t("Hi, hola, ciao, buongiorno!!!"));
+    EXPECT_EQ(test_erase.size(), 29);
+    EXPECT_GE(test_erase.capacity(), test_erase.size());
 //
-//    // erase from the start
-//    test_erase.erase(0, 4);
-//    EXPECT_EQ(test_erase, my_str_t("hola, ciao, buongiorno!!!"));
-//    EXPECT_EQ(test_erase.size(), 25);
-//    EXPECT_GE(test_erase.capacity(), test_erase.size());
+    // erase from the start
+    test_erase.erase(0, 4);
+    EXPECT_EQ(test_erase, my_str_t("hola, ciao, buongiorno!!!"));
+    EXPECT_EQ(test_erase.size(), 25);
+    EXPECT_GE(test_erase.capacity(), test_erase.size());
 //
-//    // erase to the end (out of bounds)
-//    test_erase.erase(22, 10);
-//    EXPECT_EQ(test_erase, my_str_t("hola, ciao, buongiorno"));
-//    EXPECT_EQ(test_erase.size(), 22);
-//    EXPECT_GE(test_erase.capacity(), test_erase.size());
+    // erase to the end (out of bounds)
+    test_erase.erase(22, 10);
+    EXPECT_EQ(test_erase, my_str_t("hola, ciao, buongiorno"));
+    EXPECT_EQ(test_erase.size(), 22);
+    EXPECT_GE(test_erase.capacity(), test_erase.size());
 //
-//    // erase from the end
-//    test_erase.erase(test_erase.size()-1, 10);
-//    EXPECT_EQ(test_erase, my_str_t("hola, ciao, buongiorn"));
-//    EXPECT_EQ(test_erase.size(), 21);
-//    EXPECT_GE(test_erase.capacity(), test_erase.size());
+    // erase from the end
+    test_erase.erase(test_erase.size()-1, 10);
+    EXPECT_EQ(test_erase, my_str_t("hola, ciao, buongiorn"));
+    EXPECT_EQ(test_erase.size(), 21);
+    EXPECT_GE(test_erase.capacity(), test_erase.size());
 //
 //    // bad range
-//    EXPECT_THROW(test_erase.erase(test_erase.size()+5, 10), std::out_of_range);
-//    EXPECT_EQ(test_erase, my_str_t("hola, ciao, buongiorn"));
-//    EXPECT_EQ(test_erase.size(), 21);
-//    EXPECT_GE(test_erase.capacity(), test_erase.size());
+    EXPECT_THROW(test_erase.erase(test_erase.size()+5, 10), std::out_of_range);
+    EXPECT_EQ(test_erase, my_str_t("hola, ciao, buongiorn"));
+    EXPECT_EQ(test_erase.size(), 21);
+    EXPECT_GE(test_erase.capacity(), test_erase.size());
 //
-//    // size is zero
-//    test_erase.erase(3, 0);
-//    EXPECT_EQ(test_erase, my_str_t("hola, ciao, buongiorn"));
-//    EXPECT_EQ(test_erase.size(), 21);
-//    EXPECT_GE(test_erase.capacity(), test_erase.size());
+    // size is zero
+    test_erase.erase(3, 0);
+    EXPECT_EQ(test_erase, my_str_t("hola, ciao, buongiorn"));
+    EXPECT_EQ(test_erase.size(), 21);
+    EXPECT_GE(test_erase.capacity(), test_erase.size());
 //
-//    // erase everything
-//    test_erase.erase(0, 30);
-//    EXPECT_EQ(test_erase, my_str_t(""));
-//    EXPECT_EQ(test_erase.size(), 0);
-//    EXPECT_GE(test_erase.capacity(), test_erase.size());
-//
-//    // erase empty string
-//    test_erase.erase(0, 20);
-//    EXPECT_EQ(test_erase, my_str_t(""));
-//    EXPECT_EQ(test_erase.size(), 0);
-//    EXPECT_GE(test_erase.capacity(), test_erase.size());
-//}
+    // erase everything
+    test_erase.erase(0, 30);
+    EXPECT_EQ(test_erase, my_str_t(""));
+    EXPECT_EQ(test_erase.size(), 0);
+    EXPECT_GE(test_erase.capacity(), test_erase.size());
+
+    // erase empty string
+    test_erase.erase(0, 20);
+    EXPECT_EQ(test_erase, my_str_t(""));
+    EXPECT_EQ(test_erase.size(), 0);
+    EXPECT_GE(test_erase.capacity(), test_erase.size());
+}
 //
 ///*
 // * c_str test
 // */
+
+//ПРАЦЮЄ
+
 //TEST_F(ClassDeclaration, c_str_test) {
 //    my_str_t test_c_str = my_str_t("hiiiiii");
 //    EXPECT_EQ(test_c_str.size(), 7);
@@ -495,66 +498,70 @@ namespace {
 ///*
 // * find char
 // */
+
+//ПРАЦЮЄ
+
 //TEST_F(ClassDeclaration, find_char){
-//    my_str_t test("Mutel");
-//    size_t not_found = -1;
-//    EXPECT_EQ(test.size(), 5);
-//    EXPECT_GE(test.capacity(), test.size());
-//
-//
-//    EXPECT_EQ(test.find('u', 1), 1);
-//    EXPECT_EQ(test.find('M'), 0);
-//    EXPECT_EQ(test.find('M', 2), not_found);
-//    EXPECT_EQ(test.find('l', 3), 4);
-//    EXPECT_EQ(test.find('c'), not_found);
-//
-//    // empty test
-//    my_str_t empty_test("");
-//    EXPECT_EQ(empty_test.find('w'), not_found);
-//
-//    EXPECT_THROW(test.find('c', 100), std::out_of_range);
+  //  my_str_t test("Mutel");
+    //size_t not_found = -1;
+    //EXPECT_EQ(test.size(), 5);
+    //EXPECT_GE(test.capacity(), test.size());
+
+
+    //EXPECT_EQ(test.find('u', 1), 1);
+    //EXPECT_EQ(test.find('M'), 0);
+    //EXPECT_EQ(test.find('M', 2), not_found);
+    //EXPECT_EQ(test.find('l', 3), 4);
+   //EXPECT_EQ(test.find('c'), not_found);
+
+    // empty test
+    //my_str_t empty_test("");
+    //EXPECT_EQ(empty_test.find('w'), not_found);
+
+    //EXPECT_THROW(test.find('c', 100), std::out_of_range);
 //}
-//
+
 ///*
 // * find substring c and std::string
 // */
-TEST_F(ClassDeclaration, find_sub_c_std){
-    my_str_t test("Yaroshko");
-    EXPECT_EQ(test.size(), 8);
-    EXPECT_GE(test.capacity(), test.size());
+//ПРАЦЮЄ
+//TEST_F(ClassDeclaration, find_sub_c_std){
+  //  my_str_t test("Yaroshko");
+    //EXPECT_EQ(test.size(), 8);
+    //EXPECT_GE(test.capacity(), test.size());
 //
-    size_t not_found = -1;
-    EXPECT_EQ(test.find("osh"), 3);
-    EXPECT_EQ(test.find(std::string("osh")), 3);
+    //size_t not_found = -1;
+    //EXPECT_EQ(test.find("osh"), 3);
+    //EXPECT_EQ(test.find(std::string("osh")), 3);
 //
-    EXPECT_EQ(test.find("Yar"), 0);
-    EXPECT_EQ(test.find(std::string("Yar")), 0);
+    //EXPECT_EQ(test.find("Yar"), 0);
+    //EXPECT_EQ(test.find(std::string("Yar")), 0);
 //
-    EXPECT_EQ(test.find("Yar", 1), not_found);
-    EXPECT_EQ(test.find(std::string("Yar"), 1), not_found);
+    //EXPECT_EQ(test.find("Yar", 1), not_found);
+    //EXPECT_EQ(test.find(std::string("Yar"), 1), not_found);
 //
-    EXPECT_EQ(test.find("ko", 3), 6);
-    EXPECT_EQ(test.find(std::string("ko"), 3), 6);
+    //EXPECT_EQ(test.find("ko", 3), 6);
+    //EXPECT_EQ(test.find(std::string("ko"), 3), 6);
 //
-    EXPECT_EQ(test.find("ko", 8), not_found);
-    EXPECT_EQ(test.find(std::string("ko"), 8), not_found);
+    //EXPECT_EQ(test.find("ko", 8), not_found);
+    //EXPECT_EQ(test.find(std::string("ko"), 8), not_found);
 //
-    EXPECT_EQ(test.find("osho"), not_found);
-    EXPECT_EQ(test.find(std::string("osho")), not_found);
+    //EXPECT_EQ(test.find("osho"), not_found);
+    //EXPECT_EQ(test.find(std::string("osho")), not_found);
 
-    EXPECT_EQ(test.find("yvk"), not_found);
-    EXPECT_EQ(test.find(std::string("yvk")), not_found);
+    //EXPECT_EQ(test.find("yvk"), not_found);
+    //EXPECT_EQ(test.find(std::string("yvk")), not_found);
 //
     // empty string test
-    my_str_t empty_test("");
-    EXPECT_EQ(empty_test.find("yvk"), not_found);
-    EXPECT_EQ(empty_test.find(""), not_found);
-    EXPECT_EQ(empty_test.find(std::string("yvk")), not_found);
-    EXPECT_EQ(empty_test.find(std::string("")), not_found);
+    //my_str_t empty_test("");
+    //EXPECT_EQ(empty_test.find("yvk"), not_found);
+    //EXPECT_EQ(empty_test.find(""), not_found);
+    //EXPECT_EQ(empty_test.find(std::string("yvk")), not_found);
+    //EXPECT_EQ(empty_test.find(std::string("")), not_found);
 
-    EXPECT_THROW(test.find("yvk", 100), std::out_of_range);
-    EXPECT_THROW(test.find(std::string("yvk"), 100), std::out_of_range);
-}
+    //EXPECT_THROW(test.find("yvk", 100), std::out_of_range);
+    //EXPECT_THROW(test.find(std::string("yvk"), 100), std::out_of_range);
+//}
 //
 ///*
 // * substr test

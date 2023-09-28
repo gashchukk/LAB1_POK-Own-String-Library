@@ -503,19 +503,17 @@ bool operator<=(const char* cstr1, const my_str_t& str2){
 }
 
 size_t my_str_t::find(char c, size_t idx) {
+    if (idx >= size_m){
+        throw std::out_of_range("Index out of range");
+    }
     if (size_m == 0) {
         return my_str_t::not_found;
     }
-
     if (idx >= size_m) {
-        return my_str_t::not_found;
-    }
-
+        return my_str_t::not_found;}
     for (size_t i = idx; i < size_m; i++) {
         if (data_m[i] == c) {
-            return i;
-        }
-    }
+            return i;}}
 
     return my_str_t::not_found;
 }
@@ -523,8 +521,10 @@ size_t my_str_t::find(char c, size_t idx) {
 size_t my_str_t::find(const std::string& str, size_t idx){
     if (&idx == NULL) { idx = 0; }
     size_t substring = str.length();
-
-    if(idx >= size_m or substring == 0){
+if (idx >= size_m){
+    throw std::out_of_range("Index out of range");
+}
+    if(size_m == 1 or substring == 0){
         return my_str_t::not_found;
     }
 
@@ -546,7 +546,10 @@ size_t my_str_t::find(const std::string& str, size_t idx){
 size_t my_str_t::find(const char* cstr, size_t idx){ //третій find, за аналогією з попереднім
     if (&idx == NULL) { idx = 0; }
     size_t cstr_size = strlen(cstr);
-    if (cstr_size == 0 or idx > size_m){
+    if (idx >= size_m){
+        throw std::out_of_range("Index out of range");
+    }
+    if (size_m == 1 or cstr_size == 0){
         return my_str_t::not_found;
     }
     for(size_t i = idx; i <= size_m - cstr_size; ++i){
