@@ -455,6 +455,7 @@ bool operator!=(const char* cstr1, const my_str_t& str2){
         ++i;
     }
 }
+
 bool operator>(const char* cstr1, const my_str_t& str2){
     const char* CString2 = str2.c_str();
     if(strlen(cstr1) > strlen(CString2)){
