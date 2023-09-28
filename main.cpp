@@ -136,7 +136,6 @@ TEST_F(ClassDeclaration, reserve_shrink) {
     EXPECT_LT(test_cap.capacity(), 53);
 }
 
-///*
 // *  resize, clear
 // */
 //TEST_F(ClassDeclaration, res_clear) {
@@ -168,7 +167,6 @@ TEST_F(ClassDeclaration, reserve_shrink) {
 //    EXPECT_EQ(test_res.size(), 0);
 //}
 
-///*
 // * insert char
 // */
 //
@@ -218,7 +216,6 @@ TEST_F(ClassDeclaration, insert_char) {
     EXPECT_GE(empty_str.capacity(), empty_str.size());
 }
 
-///*
 // * insert my_str
 // */
 TEST_F(ClassDeclaration, insert_my_str) {
@@ -270,7 +267,6 @@ TEST_F(ClassDeclaration, insert_my_str) {
     EXPECT_GE(test_insert_my_str.capacity(), my_capacity);
 }
 
-///*
 // *  insert c string
 // */
 //TEST_F(ClassDeclaration, insert_c_string) {
@@ -321,7 +317,6 @@ TEST_F(ClassDeclaration, insert_my_str) {
 //    EXPECT_GE(test_insert_c_str.capacity(), my_capacity);
 //}
 //
-///*
 // * append char
 // */
 //TEST_F(ClassDeclaration, append_char) {
@@ -393,7 +388,6 @@ TEST_F(ClassDeclaration, insert_my_str) {
 //}
 //
 //
-///*
 // * append c str
 // */
 //TEST_F(ClassDeclaration, append_c_str) {
@@ -426,7 +420,6 @@ TEST_F(ClassDeclaration, insert_my_str) {
 //    EXPECT_GE(test_empty_c_str.capacity(), test_empty_c_str.size());
 //}
 //
-///*
 // * erase
 // */
 TEST_F(ClassDeclaration, erase_test) {
@@ -483,7 +476,6 @@ TEST_F(ClassDeclaration, erase_test) {
     EXPECT_GE(test_erase.capacity(), test_erase.size());
 }
 //
-///*
 // * c_str test
 // */
 
@@ -565,7 +557,6 @@ TEST_F(ClassDeclaration, erase_test) {
     //EXPECT_THROW(test.find(std::string("yvk"), 100), std::out_of_range);
 //}
 //
-///*
 // * substr test
 // */
 // TEST_F(ClassDeclaration, substr_test){
@@ -585,7 +576,6 @@ TEST_F(ClassDeclaration, erase_test) {
     //EXPECT_THROW(test.substr(8, 10), std::out_of_range);
 //}
 //
-///*
 // * equality operator
 // */
 //
@@ -603,7 +593,6 @@ TEST_F(ClassDeclaration, erase_test) {
     // EXPECT_EQ(test + "appendedmystr", "Muzychu" + test1);
 //}
 //
-///*
 // * inequality operator
 // */
 //TEST_F(ClassDeclaration, inequality_operator){

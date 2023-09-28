@@ -71,7 +71,6 @@ my_str_t& my_str_t::operator=(const my_str_t& mystr) {
 //my_str_t& my_str_t::operator=(my_str_t&& mystr);
 
 void my_str_t::swap(my_str_t& other) noexcept {
-    // взагалі легально???
     std::swap(data_m, other.data_m);
     std::swap(size_m, other.size_m);
     std::swap(capacity_m, other.capacity_m);
@@ -193,7 +192,6 @@ void my_str_t::insert(size_t idx, const my_str_t& str) {
     size_m = new_size;
 }
 
-// ?? чи буде це працювати чи треба один символ додати?
 void my_str_t::insert(size_t idx, char c) {
     // ця функція служить для оптимізації, щоб не довелось
     // спочатку створювати із літери c стрічку my_str_t а
@@ -221,8 +219,6 @@ void my_str_t::insert(size_t idx, char c) {
     size_m = new_size;
     data_m[size_m] = '\0';
 }
-
-// Check if it works!!!
 void my_str_t::insert(size_t idx, const char* cstr) {
     if (idx > size_m) {
         throw std::out_of_range("Index out of range");
@@ -297,7 +293,6 @@ void my_str_t::append(const my_str_t& str){
     data_m[size_m] = '\0';
 }
 
-//erase
 
 void my_str_t::erase(size_t begin, size_t size) {
     if(size + begin > size_m){
@@ -327,7 +322,6 @@ const char* my_str_t::c_str() const noexcept{
     return data_m;
 }
 
-// оператори вводу та виводу
 std::ostream& operator<<(std::ostream& stream, const my_str_t& str) {
     const char* str_data = str.c_str();
 
@@ -407,7 +401,7 @@ bool operator<=(const my_str_t& str1, const my_str_t& str2){
     }else
         return false;
 }
-// Now Goes str vs const str
+
 bool operator==(const my_str_t& str1, const char* cstr2){
     const char* CString1 = str1.c_str();
     int i=0;
@@ -458,7 +452,7 @@ bool operator<=(const my_str_t& str1, const char* cstr2){
     }else
         return false;
 }
- //the next one goes const str vs str
+
  bool operator==(const char* cstr1, const my_str_t& str2){
      const char* CString2 = str2.c_str();
      int i=0;
@@ -552,7 +546,7 @@ if (idx >= size_m){
     return -1;
 }
 
-size_t my_str_t::find(const char* cstr, size_t idx){ //третій find, за аналогією з попереднім
+size_t my_str_t::find(const char* cstr, size_t idx){
     if (&idx == NULL) { idx = 0; }
     size_t cstr_size = strlen(cstr);
     if (idx >= size_m){
@@ -584,17 +578,15 @@ my_str_t my_str_t::substr(size_t begin, size_t size) {
         size = size_m - begin;
     }
 
-    //створимо нову сабстрінгу
     char *new_str = new char[size + 1];
 
-    //перекопіюємо в неї симовли
     for (size_t i = 0; i < size; ++i) {
         new_str[i] = data_m[begin + i];
     }
 
     new_str[size] = '\0';
     my_str_t result(new_str);
-    delete[] new_str; // обов'язково звільняємо пам'ять
+    delete[] new_str;
 
     return result;
 }
