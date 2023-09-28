@@ -17,6 +17,3 @@ echo "Starting compile"
 ./compile.sh
 echo "Starting tests"
 ./bin/gtester
-echo "Cleaning up"
-cd ../..
-rm -rf UCU_autotests
