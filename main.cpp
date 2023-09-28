@@ -10,9 +10,6 @@ int main(int argc, char* argv[]) {
     my_str_t str3(std::string("World"));
     my_str_t str4(str1);
 
-//    my_str_t str5;
-//    str5 = str2;
-
     char ch1 = str1[3];
     const char ch2 = str2[1];
 
@@ -21,14 +18,11 @@ int main(int argc, char* argv[]) {
 
     str3.reserve(50);
     str4.shrink_to_fit();
-//    str5.resize(15, 'Z');
-//    str5.clear();
 
     str1.insert(2, str2);
     str2.insert(0, 'H');
     str3.insert(5, " ");
     str4.append(str1);
-//    str5.append("New Text");
 
     str4.erase(3, 4);
 
@@ -42,7 +36,6 @@ int main(int argc, char* argv[]) {
     my_str_t subStr1 = str1.substr(2, 5);
     my_str_t s(1, 'A');
 
-    //ліза
     my_str_t s1(5,'Hello');
     my_str_t s2(5,'world');
     s1.append(s2);
@@ -56,5 +49,6 @@ int main(int argc, char* argv[]) {
     size_t search3 = s1.find("orld");
 
     my_str_t substr = s1.substr(3, 2);
+    std::cout << "4568";
     return 0;
 }

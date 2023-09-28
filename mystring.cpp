@@ -347,11 +347,11 @@ bool operator==(const my_str_t& str1, const my_str_t& str2){
     int i=0;
     while(CString1[i] !='\0' && CString2[i] !='\0'){
         if(CString1[i] != CString2[i]){
-            return 0;
+            return false;
         }
         ++i;
     }
-    return 1;
+    return true;
 
 }
 bool operator!=(const my_str_t& str1, const my_str_t& str2){
@@ -360,43 +360,43 @@ bool operator!=(const my_str_t& str1, const my_str_t& str2){
     int i=0;
     while(CString1[i] !='\0' && CString2[i] !='\0'){
         if(CString1[i] == CString2[i]){
-            return 0;
+            return false;
         }
         ++i;
     }
-    return 1;
+    return true;
 }
 bool operator> (const my_str_t& str1, const my_str_t& str2){
     const char* CString1 = str1.c_str();
     const char* CString2 = str2.c_str();
     if(strlen(CString1) > strlen(CString2)) {
-        return 1;
+        return true;
     }else
-        return 0;
+        return false;
 }
 bool operator>=(const my_str_t& str1, const my_str_t& str2){
     const char* CString1 = str1.c_str();
     const char* CString2 = str2.c_str();
     if(strlen(CString1) >= strlen(CString2)) {
-        return 1;
+        return true;
     }else
-        return 0;
+        return false;
 }
 bool operator< (const my_str_t& str1, const my_str_t& str2){
     const char* CString1 = str1.c_str();
     const char* CString2 = str2.c_str();
     if(strlen(CString1) < strlen(CString2)){
-        return 1;
+        return true;
     }else
-        return 0;
+        return false;
 }
 bool operator<=(const my_str_t& str1, const my_str_t& str2){
     const char* CString1 = str1.c_str();
     const char* CString2 = str2.c_str();
     if(strlen(CString1) <= strlen(CString2)){
-        return 1;
+        return true;
     }else
-        return 0;
+        return false;
 }
 // Now Goes str vs const str
 bool operator==(const my_str_t& str1, const char* cstr2){
@@ -404,50 +404,50 @@ bool operator==(const my_str_t& str1, const char* cstr2){
     int i=0;
     while(CString1[i] !='\0' && cstr2[i] !='\0'){
         if(CString1[i] != cstr2[i]){
-            return 0;
+            return false;
         }
         ++i;
     }
-    return 1;
+    return true;
 }
 bool operator!=(const my_str_t& str1, const char* cstr2){
     const char* CString1 = str1.c_str();
     int i=0;
     while(CString1[i] !='\0' && cstr2[i] !='\0'){
         if(CString1[i] == cstr2[i]){
-            return 0;
+            return false;
         }
         ++i;
     }
-    return 1;
+    return true;
 }
 bool operator>(const my_str_t& str1, const char* cstr2){
     const char* CString1 = str1.c_str();
     if(strlen(CString1) > strlen(cstr2)){
-        return 1;
+        return true;
     }else
-        return 0;
+        return false;
 }
 bool operator>=(const my_str_t& str1, const char* cstr2){
     const char* CString1 = str1.c_str();
     if(strlen(CString1) >= strlen(cstr2)){
-        return 1;
+        return true;
     }else
-        return 0;
+        return false;
 }
 bool operator<(const my_str_t& str1, const char* cstr2){
     const char* CString1 = str1.c_str();
     if(strlen(CString1) < strlen(cstr2)){
-        return 1;
+        return true;
     }else
-        return 0;
+        return false;
 }
 bool operator<=(const my_str_t& str1, const char* cstr2){
     const char* CString1 = str1.c_str();
     if(strlen(CString1) <= strlen(cstr2)){
-        return 1;
+        return true;
     }else
-        return 0;
+        return false;
 }
  //the next one goes const str vs str
  bool operator==(const char* cstr1, const my_str_t& str2){
@@ -455,62 +455,63 @@ bool operator<=(const my_str_t& str1, const char* cstr2){
      int i=0;
      while(cstr1[i] !='\0' && CString2[i] !='\0'){
          if(cstr1[i] != CString2[i]){
-             return 0;
+             return false;
          }
          ++i;
      }
-     return 1;
+     return true;
  }
 bool operator!=(const char* cstr1, const my_str_t& str2){
     const char* CString2 = str2.c_str();
     int i=0;
     while(cstr1[i] !='\0' && CString2[i] !='\0'){
         if(cstr1[i] == CString2[i]){
-            return 0;
+            return false;
         }
         ++i;
     }
+    return true;
 }
 
 bool operator>(const char* cstr1, const my_str_t& str2){
     const char* CString2 = str2.c_str();
     if(strlen(cstr1) > strlen(CString2)){
-        return 1;
+        return true;
     }else
-        return 0;
+        return false;
 }
 bool operator>=(const char* cstr1, const my_str_t& str2){
     const char* CString2 = str2.c_str();
     if(strlen(cstr1) >= strlen(CString2)){
-        return 1;
+        return true;
     }else
-        return 0;
+        return false;
 }
 bool operator<(const char* cstr1, const my_str_t& str2){
     const char* CString2 = str2.c_str();
     if(strlen(cstr1) < strlen(CString2)){
-        return 1;
+        return true;
     }else
-        return 0;
+        return false;
 }
 bool operator<=(const char* cstr1, const my_str_t& str2){
     const char* CString2 = str2.c_str();
     if(strlen(cstr1) <= strlen(CString2)){
-        return 1;
+        return true;
     }else
-        return 0;
+        return false;
 }
 
 size_t my_str_t::find(char c, size_t idx){ //перший find
     if (idx >= size_m){
-        return false;
+        return my_str_t::not_found;
     }
     for (size_t i = idx; i < size_m; ++i){
         if(data_m[i] == c){
             return i;
         }
-        return false;// якшо не знайшли
     }
+    return my_str_t::not_found;
 }
 
 size_t my_str_t::find(const std::string& str, size_t idx){
