@@ -133,23 +133,27 @@ void my_str_t::shrink_to_fit() {
 
 void my_str_t::resize(size_t new_size, char new_char) {
     if (new_size < size_m) {
-        size_m = new_size;
+        size_m = new_size + 1;
+        data_m[new_size] = '\0';
     } else if (new_size > size_m && new_size <= capacity_m) {
-        for (size_t i = size_m; i < new_size; ++i) {
+        for (size_t i = size_m; i <= new_size; ++i) {
             data_m[i] = new_char;
         }
+        size_m = new_size + 1;
+        data_m[new_size] = '\0';
     } else {
         this->reserve(new_size);
         for (size_t i = size_m; i < new_size; ++i) {
             data_m[i] = new_char;
         }
+        size_m = new_size + 1;
+        data_m[new_size] = '\0';
     }
 }
 
 void my_str_t::clear() {
     size_m = 0;
-    capacity_m = 16;
-    data_m = new char[size_m];
+    data_m[0] = '\0';
 }
 
 void my_str_t::insert(size_t idx, const my_str_t& str) {
@@ -309,11 +313,14 @@ void my_str_t::erase(size_t begin, size_t size) {
 }
 
 size_t my_str_t::size() const noexcept{
+    if (size_m == 0) {
+        return 0;
+    }
     return size_m - 1;
 }
 
 size_t my_str_t::capacity() const noexcept{
-    return capacity_m - 1;
+    return capacity_m;
 }
 
 const char* my_str_t::c_str() const noexcept{
@@ -342,29 +349,31 @@ std::istream& operator>>(std::istream& stream, my_str_t& str) {
 
 //Bohdan's part
 bool operator==(const my_str_t& str1, const my_str_t& str2){
-    const char* CString1 = str1.c_str();
-    const char* CString2 = str2.c_str();
-    int i=0;
-    while(CString1[i] !='\0' && CString2[i] !='\0'){
-        if(CString1[i] != CString2[i]){
+    if(str1.size() != str2.size()) {
+        return false;
+    }
+    for(size_t i = 0; i < str1.size(); ++i) {
+        if(str1[i] != str2[i]) {
             return false;
         }
-        ++i;
+
     }
+
     return true;
 
 }
 bool operator!=(const my_str_t& str1, const my_str_t& str2){
-    const char* CString1 = str1.c_str();
-    const char* CString2 = str2.c_str();
-    int i=0;
-    while(CString1[i] !='\0' && CString2[i] !='\0'){
-        if(CString1[i] == CString2[i]){
-            return false;
-        }
-        ++i;
+    if(str1.size() != str2.size()) {
+        return true;
     }
-    return true;
+
+    for(size_t i = 0; i < str1.size(); ++i) {
+        if(str1[i] != str2[i]) {
+            return true;
+        }
+    }
+
+    return false;
 }
 bool operator> (const my_str_t& str1, const my_str_t& str2){
     const char* CString1 = str1.c_str();
