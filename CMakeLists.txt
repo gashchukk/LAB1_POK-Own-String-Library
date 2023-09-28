@@ -81,3 +81,12 @@ set(ALL_TARGETS ${PROJECT_NAME})
 
 # Include CMake setup
 include(cmake/main-config.cmake)
+
+include(FetchContent)
+FetchContent_Declare(
+		googletest
+		URL https://github.com/google/googletest/archive/release-1.11.0.zip
+)
+FetchContent_MakeAvailable(googletest)
+
+target_link_libraries(template gtest)

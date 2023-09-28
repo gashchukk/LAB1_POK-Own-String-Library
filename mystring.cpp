@@ -309,11 +309,11 @@ void my_str_t::erase(size_t begin, size_t size) {
 }
 
 size_t my_str_t::size() const noexcept{
-    return size_m;
+    return size_m - 1;
 }
 
 size_t my_str_t::capacity() const noexcept{
-    return capacity_m;
+    return capacity_m - 1;
 }
 
 const char* my_str_t::c_str() const noexcept{
