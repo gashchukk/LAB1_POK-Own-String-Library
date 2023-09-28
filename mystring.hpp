@@ -30,7 +30,6 @@ public:
 
     // те ж, що й оператори []
     char& at(size_t idx);
-    // я
     const char& at(size_t idx) const;
 
     void reserve(size_t new_capacity);
@@ -47,12 +46,10 @@ public:
     void erase(size_t begin, size_t size);
 
     // повертають розмір стрічки та зарезервований блок пам'яті
-    // я
     size_t size() const noexcept;
     size_t capacity() const noexcept;
 
     // повертає вказівник на С-стрічку
-    // я
     const char* c_str() const noexcept;
 
     static constexpr size_t not_found = -1;
@@ -60,7 +57,6 @@ public:
     size_t find(const std::string& str, size_t idx = 0);
     size_t find(const char* cstr, size_t idx = 0);
 
-    // ліза
     my_str_t substr(size_t begin, size_t size);
     ~my_str_t();
 };

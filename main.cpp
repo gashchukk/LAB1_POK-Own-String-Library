@@ -62,31 +62,31 @@ namespace {
 ///*
 // *  test of assignment operator
 // */
-//TEST_F(ClassDeclaration, assign_operator) {
-  //  my_str_t assign_to = my_str_t("hello world!");
-    //my_str_t assign_this = my_str_t("goodbye world! see you soon!");
+TEST_F(ClassDeclaration, assign_operator) {
+    my_str_t assign_to = my_str_t("hello world!");
+    my_str_t assign_this = my_str_t("goodbye world! see you soon!");
 
-    //EXPECT_EQ(assign_to.size(), 12);
-    //EXPECT_GE(assign_to.capacity(), assign_to.size());
+    EXPECT_EQ(assign_to.size(), 12);
+    EXPECT_GE(assign_to.capacity(), assign_to.size());
 
-    //EXPECT_EQ(assign_this.size(), 28);
-    //EXPECT_GE(assign_this.capacity(), assign_this.size());
+    EXPECT_EQ(assign_this.size(), 28);
+    EXPECT_GE(assign_this.capacity(), assign_this.size());
 
-    //assign_to = assign_this;
+    assign_to = assign_this;
 
-    //EXPECT_EQ(assign_this.size(), 28);
-    //EXPECT_GE(assign_this.capacity(), assign_this.size());
+    EXPECT_EQ(assign_this.size(), 28);
+    EXPECT_GE(assign_this.capacity(), assign_this.size());
 
-    //EXPECT_EQ(assign_to.size(), 28);
-    //EXPECT_GE(assign_to.capacity(), assign_to.size());
+    EXPECT_EQ(assign_to.size(), 28);
+    EXPECT_GE(assign_to.capacity(), assign_to.size());
 
-    //EXPECT_EQ(assign_to, assign_this);
+    EXPECT_EQ(assign_to, assign_this);
 
-    //assign_to[0] = 'G';
-    //std::cout << assign_to << std::endl;
-    //std::cout << assign_this << std::endl;
-    //EXPECT_NE(assign_to, assign_this);
-//}
+    assign_to[0] = 'G';
+    std::cout << assign_to << std::endl;
+    std::cout << assign_this << std::endl;
+    EXPECT_NE(assign_to, assign_this);
+}
 
 /*
  * test swap
@@ -138,34 +138,34 @@ TEST_F(ClassDeclaration, reserve_shrink) {
 
 // *  resize, clear
 // */
-//TEST_F(ClassDeclaration, res_clear) {
-//    // resize
-//    my_str_t test_res = my_str_t("hi, buongiorno, buonasera, arrivederci!!!!");
-//
-//    EXPECT_EQ(test_res.size(), 42);
-//    EXPECT_GE(test_res.capacity(), test_res.size());
-//
-//    auto prev_cap = test_res.capacity();
-//
-//    test_res.resize(25);
-//    EXPECT_EQ(test_res.size(), 25);
-//    EXPECT_EQ(test_res, my_str_t("hi, buongiorno, buonasera"));
-//
-//    test_res.resize(30);
-//    EXPECT_EQ(test_res.size(), 30);
-//
-//    EXPECT_EQ(test_res.capacity(), prev_cap);
-//    EXPECT_EQ(test_res, my_str_t("hi, buongiorno, buonasera     "));
-//
-//    // check this!!!!
-//    test_res.resize(prev_cap + 5, 'a');
-//    EXPECT_EQ(test_res.size(), prev_cap + 5);
-//    EXPECT_GE(test_res.capacity(), test_res.size());
-//
-//    // clear
-//    test_res.clear();
-//    EXPECT_EQ(test_res.size(), 0);
-//}
+TEST_F(ClassDeclaration, res_clear) {
+    // resize
+    my_str_t test_res = my_str_t("hi, buongiorno, buonasera, arrivederci!!!!");
+
+    EXPECT_EQ(test_res.size(), 42);
+    EXPECT_GE(test_res.capacity(), test_res.size());
+
+    auto prev_cap = test_res.capacity();
+
+    test_res.resize(25);
+    EXPECT_EQ(test_res.size(), 25);
+    EXPECT_EQ(test_res, my_str_t("hi, buongiorno, buonasera"));
+
+    test_res.resize(30);
+    EXPECT_EQ(test_res.size(), 30);
+
+    EXPECT_EQ(test_res.capacity(), prev_cap);
+    EXPECT_EQ(test_res, my_str_t("hi, buongiorno, buonasera     "));
+
+    // check this!!!!
+    test_res.resize(prev_cap + 5, 'a');
+    EXPECT_EQ(test_res.size(), prev_cap + 5);
+    EXPECT_GE(test_res.capacity(), test_res.size());
+
+    // clear
+    test_res.clear();
+    EXPECT_EQ(test_res.size(), 0);
+}
 
 // * insert char
 // */
@@ -269,156 +269,156 @@ TEST_F(ClassDeclaration, insert_my_str) {
 
 // *  insert c string
 // */
-//TEST_F(ClassDeclaration, insert_c_string) {
-//    my_str_t test_insert_c_str = my_str_t("hi, how are you?");
-//    auto my_capacity = test_insert_c_str.capacity() + 16;
-//    test_insert_c_str.reserve(my_capacity);
-//    EXPECT_EQ(test_insert_c_str.size(), 16);
-//    EXPECT_GE(test_insert_c_str.capacity(), my_capacity);
-//
-//    // normal insert
-//    test_insert_c_str.insert(3, " friend,");
-//    EXPECT_EQ(test_insert_c_str, my_str_t("hi, friend, how are you?"));
-//    EXPECT_EQ(test_insert_c_str.size(), 24);
-//    EXPECT_GE(test_insert_c_str.capacity(), my_capacity);
-//
-//    // insert at the end of the string
-//    test_insert_c_str.insert(test_insert_c_str.size(), " I am fine!");
-//    EXPECT_EQ(test_insert_c_str, my_str_t("hi, friend, how are you? I am fine!"));
-//    EXPECT_EQ(test_insert_c_str.size(), 35);
-//    // test if capacity increased
-//    EXPECT_GE(test_insert_c_str.capacity(), my_capacity);
-//
-//    // insert at the start of the string
-//    test_insert_c_str.insert(0, "hii, ");
-//    EXPECT_EQ(test_insert_c_str, my_str_t("hii, hi, friend, how are you? I am fine!"));
-//    EXPECT_EQ(test_insert_c_str.size(), 40);
-//    EXPECT_GE(test_insert_c_str.capacity(), my_capacity);
-//
-//    // insert empty string
-//    test_insert_c_str.insert(3, "");
-//    EXPECT_EQ(test_insert_c_str, my_str_t("hii, hi, friend, how are you? I am fine!"));
-//    EXPECT_EQ(test_insert_c_str.size(), 40);
-//    EXPECT_GE(test_insert_c_str.capacity(), my_capacity);
-//
-//    // insert in the empty string
-//    my_str_t test_insert_empty_c = my_str_t("");
-//    EXPECT_EQ(test_insert_empty_c.size(), 0);
-//    EXPECT_GE(test_insert_empty_c.capacity(), test_insert_empty_c.size());
-//    test_insert_empty_c.insert(0, "hi, welcome!");
-//    EXPECT_EQ(test_insert_empty_c, my_str_t("hi, welcome!"));
-//    EXPECT_EQ(test_insert_empty_c.size(), 12);
-//    EXPECT_GE(test_insert_empty_c.capacity(), test_insert_empty_c.size());
-//
-//    // insert at wrong position
-//    EXPECT_THROW(test_insert_c_str.insert(100, "No:("), std::out_of_range);
-//    EXPECT_EQ(test_insert_c_str, my_str_t("hii, hi, friend, how are you? I am fine!"));
-//    EXPECT_EQ(test_insert_c_str.size(), 40);
-//    EXPECT_GE(test_insert_c_str.capacity(), my_capacity);
-//}
+TEST_F(ClassDeclaration, insert_c_string) {
+    my_str_t test_insert_c_str = my_str_t("hi, how are you?");
+    auto my_capacity = test_insert_c_str.capacity() + 16;
+    test_insert_c_str.reserve(my_capacity);
+    EXPECT_EQ(test_insert_c_str.size(), 16);
+    EXPECT_GE(test_insert_c_str.capacity(), my_capacity);
+
+    // normal insert
+    test_insert_c_str.insert(3, " friend,");
+    EXPECT_EQ(test_insert_c_str, my_str_t("hi, friend, how are you?"));
+    EXPECT_EQ(test_insert_c_str.size(), 24);
+    EXPECT_GE(test_insert_c_str.capacity(), my_capacity);
+
+    // insert at the end of the string
+    test_insert_c_str.insert(test_insert_c_str.size(), " I am fine!");
+    EXPECT_EQ(test_insert_c_str, my_str_t("hi, friend, how are you? I am fine!"));
+    EXPECT_EQ(test_insert_c_str.size(), 35);
+    // test if capacity increased
+    EXPECT_GE(test_insert_c_str.capacity(), my_capacity);
+
+    // insert at the start of the string
+    test_insert_c_str.insert(0, "hii, ");
+    EXPECT_EQ(test_insert_c_str, my_str_t("hii, hi, friend, how are you? I am fine!"));
+    EXPECT_EQ(test_insert_c_str.size(), 40);
+    EXPECT_GE(test_insert_c_str.capacity(), my_capacity);
+
+    // insert empty string
+    test_insert_c_str.insert(3, "");
+    EXPECT_EQ(test_insert_c_str, my_str_t("hii, hi, friend, how are you? I am fine!"));
+    EXPECT_EQ(test_insert_c_str.size(), 40);
+    EXPECT_GE(test_insert_c_str.capacity(), my_capacity);
+
+    // insert in the empty string
+    my_str_t test_insert_empty_c = my_str_t("");
+    EXPECT_EQ(test_insert_empty_c.size(), 0);
+    EXPECT_GE(test_insert_empty_c.capacity(), test_insert_empty_c.size());
+    test_insert_empty_c.insert(0, "hi, welcome!");
+    EXPECT_EQ(test_insert_empty_c, my_str_t("hi, welcome!"));
+    EXPECT_EQ(test_insert_empty_c.size(), 12);
+    EXPECT_GE(test_insert_empty_c.capacity(), test_insert_empty_c.size());
+
+    // insert at wrong position
+    EXPECT_THROW(test_insert_c_str.insert(100, "No:("), std::out_of_range);
+    EXPECT_EQ(test_insert_c_str, my_str_t("hii, hi, friend, how are you? I am fine!"));
+    EXPECT_EQ(test_insert_c_str.size(), 40);
+    EXPECT_GE(test_insert_c_str.capacity(), my_capacity);
+}
 //
 // * append char
 // */
-//TEST_F(ClassDeclaration, append_char) {
-//    my_str_t test_append_char = my_str_t("I love c++ strings lab!!!");
-//    auto my_capacity = test_append_char.capacity() + 16;
-//    test_append_char.reserve(my_capacity);
-//    EXPECT_EQ(test_append_char.size(), 25);
-//    EXPECT_GE(test_append_char.capacity(), my_capacity);
-//
-//    // normal append
-//    test_append_char.append('q');
-//    EXPECT_EQ(test_append_char, my_str_t("I love c++ strings lab!!!q"));
-//    EXPECT_EQ(test_append_char.size(), 26);
-//    EXPECT_GE(test_append_char.capacity(), my_capacity);
-//
-//    // test capacity increse
-//    test_append_char.append('q');
-//    test_append_char.append('q');
-//    test_append_char.append('q');
-//    test_append_char.append('q');
-//    test_append_char.append('q');
-//    test_append_char.append('q');
-//    EXPECT_EQ(test_append_char, my_str_t("I love c++ strings lab!!!qqqqqqq"));
-//    EXPECT_EQ(test_append_char.size(), 32);
-//    EXPECT_GE(test_append_char.capacity(), my_capacity);
-//
-//
-//    // append to empty string
-//    my_str_t test_empty_char = my_str_t("");
-//    EXPECT_EQ(test_empty_char.size(), 0);
-//    EXPECT_GE(test_empty_char.capacity(), test_empty_char.size());
-//    test_empty_char.append('w');
-//    EXPECT_EQ(test_empty_char, my_str_t("w"));
-//    EXPECT_EQ(test_empty_char.size(), 1);
-//    EXPECT_GE(test_empty_char.capacity(), test_empty_char.size());
-//}
-//
+TEST_F(ClassDeclaration, append_char) {
+    my_str_t test_append_char = my_str_t("I love c++ strings lab!!!");
+    auto my_capacity = test_append_char.capacity() + 16;
+    test_append_char.reserve(my_capacity);
+    EXPECT_EQ(test_append_char.size(), 25);
+    EXPECT_GE(test_append_char.capacity(), my_capacity);
+
+    // normal append
+    test_append_char.append('q');
+    EXPECT_EQ(test_append_char, my_str_t("I love c++ strings lab!!!q"));
+    EXPECT_EQ(test_append_char.size(), 26);
+    EXPECT_GE(test_append_char.capacity(), my_capacity);
+
+    // test capacity increse
+    test_append_char.append('q');
+    test_append_char.append('q');
+    test_append_char.append('q');
+    test_append_char.append('q');
+    test_append_char.append('q');
+    test_append_char.append('q');
+    EXPECT_EQ(test_append_char, my_str_t("I love c++ strings lab!!!qqqqqqq"));
+    EXPECT_EQ(test_append_char.size(), 32);
+    EXPECT_GE(test_append_char.capacity(), my_capacity);
+
+
+    // append to empty string
+    my_str_t test_empty_char = my_str_t("");
+    EXPECT_EQ(test_empty_char.size(), 0);
+    EXPECT_GE(test_empty_char.capacity(), test_empty_char.size());
+    test_empty_char.append('w');
+    EXPECT_EQ(test_empty_char, my_str_t("w"));
+    EXPECT_EQ(test_empty_char.size(), 1);
+    EXPECT_GE(test_empty_char.capacity(), test_empty_char.size());
+}
+
 ///*
 // * append my_str
 // */
-//TEST_F(ClassDeclaration, append_my_str) {
-//    my_str_t test_append_my_str = my_str_t("I love c++ strings lab!!!");
-//    auto my_capacity = test_append_my_str.capacity() + 16;
-//    test_append_my_str.reserve(my_capacity);
-//    EXPECT_EQ(test_append_my_str.size(), 25);
-//    EXPECT_GE(test_append_my_str.capacity(), my_capacity);
-//
-//    // normal append
-//    test_append_my_str.append(my_str_t(" Very much!!!"));
-//    EXPECT_EQ(test_append_my_str, my_str_t("I love c++ strings lab!!! Very much!!!"));
-//    EXPECT_EQ(test_append_my_str.size(), 38);
-//    // test buffer increase
-//    EXPECT_GE(test_append_my_str.capacity(), my_capacity);
-//
-//    // append empty string
-//    test_append_my_str.append(my_str_t(""));
-//    EXPECT_EQ(test_append_my_str, my_str_t("I love c++ strings lab!!! Very much!!!"));
-//    EXPECT_EQ(test_append_my_str.size(), 38);
-//    EXPECT_GE(test_append_my_str.capacity(), my_capacity);
-//
-//    // append to empty string
-//    my_str_t test_empty_my_str = my_str_t("");
-//    EXPECT_EQ(test_empty_my_str.size(), 0);
-//    EXPECT_GE(test_empty_my_str.capacity(), test_empty_my_str.size());
-//    test_empty_my_str.append(my_str_t("hiiii"));
-//    EXPECT_EQ(test_empty_my_str, my_str_t("hiiii"));
-//    EXPECT_EQ(test_empty_my_str.size(), 5);
-//    EXPECT_GE(test_empty_my_str.capacity(), test_empty_my_str.size());
-//}
-//
+TEST_F(ClassDeclaration, append_my_str) {
+    my_str_t test_append_my_str = my_str_t("I love c++ strings lab!!!");
+    auto my_capacity = test_append_my_str.capacity() + 16;
+    test_append_my_str.reserve(my_capacity);
+    EXPECT_EQ(test_append_my_str.size(), 25);
+    EXPECT_GE(test_append_my_str.capacity(), my_capacity);
+
+    // normal append
+    test_append_my_str.append(my_str_t(" Very much!!!"));
+    EXPECT_EQ(test_append_my_str, my_str_t("I love c++ strings lab!!! Very much!!!"));
+    EXPECT_EQ(test_append_my_str.size(), 38);
+    // test buffer increase
+    EXPECT_GE(test_append_my_str.capacity(), my_capacity);
+
+    // append empty string
+    test_append_my_str.append(my_str_t(""));
+    EXPECT_EQ(test_append_my_str, my_str_t("I love c++ strings lab!!! Very much!!!"));
+    EXPECT_EQ(test_append_my_str.size(), 38);
+    EXPECT_GE(test_append_my_str.capacity(), my_capacity);
+
+    // append to empty string
+    my_str_t test_empty_my_str = my_str_t("");
+    EXPECT_EQ(test_empty_my_str.size(), 0);
+    EXPECT_GE(test_empty_my_str.capacity(), test_empty_my_str.size());
+    test_empty_my_str.append(my_str_t("hiiii"));
+    EXPECT_EQ(test_empty_my_str, my_str_t("hiiii"));
+    EXPECT_EQ(test_empty_my_str.size(), 5);
+    EXPECT_GE(test_empty_my_str.capacity(), test_empty_my_str.size());
+}
+
 //
 // * append c str
 // */
-//TEST_F(ClassDeclaration, append_c_str) {
-//    my_str_t test_append_c_str = my_str_t("I love c++ strings lab!!!");
-//    auto my_capacity = test_append_c_str.capacity() + 16;
-//    test_append_c_str.reserve(my_capacity);
-//    EXPECT_EQ(test_append_c_str.size(), 25);
-//    EXPECT_GE(test_append_c_str.capacity(), my_capacity);
-//
-//    // normal append
-//    test_append_c_str.append(" Very much!!!");
-//    EXPECT_EQ(test_append_c_str, my_str_t("I love c++ strings lab!!! Very much!!!"));
-//    EXPECT_EQ(test_append_c_str.size(), 38);
-//    // test buffer increase
-//    EXPECT_GE(test_append_c_str.capacity(), my_capacity);
-//
-//    // append empty string
-//    test_append_c_str.append("");
-//    EXPECT_EQ(test_append_c_str, my_str_t("I love c++ strings lab!!! Very much!!!"));
-//    EXPECT_EQ(test_append_c_str.size(), 38);
-//    EXPECT_GE(test_append_c_str.capacity(), my_capacity);
-//
-//    // append to empty string
-//    my_str_t test_empty_c_str = my_str_t("");
-//    EXPECT_EQ(test_empty_c_str.size(), 0);
-//    EXPECT_GE(test_empty_c_str.capacity(), test_empty_c_str.size());
-//    test_empty_c_str.append("hiiii");
-//    EXPECT_EQ(test_empty_c_str, my_str_t("hiiii"));
-//    EXPECT_EQ(test_empty_c_str.size(), 5);
-//    EXPECT_GE(test_empty_c_str.capacity(), test_empty_c_str.size());
-//}
+TEST_F(ClassDeclaration, append_c_str) {
+    my_str_t test_append_c_str = my_str_t("I love c++ strings lab!!!");
+    auto my_capacity = test_append_c_str.capacity() + 16;
+    test_append_c_str.reserve(my_capacity);
+    EXPECT_EQ(test_append_c_str.size(), 25);
+    EXPECT_GE(test_append_c_str.capacity(), my_capacity);
+
+    // normal append
+    test_append_c_str.append(" Very much!!!");
+    EXPECT_EQ(test_append_c_str, my_str_t("I love c++ strings lab!!! Very much!!!"));
+    EXPECT_EQ(test_append_c_str.size(), 38);
+    // test buffer increase
+    EXPECT_GE(test_append_c_str.capacity(), my_capacity);
+
+    // append empty string
+    test_append_c_str.append("");
+    EXPECT_EQ(test_append_c_str, my_str_t("I love c++ strings lab!!! Very much!!!"));
+    EXPECT_EQ(test_append_c_str.size(), 38);
+    EXPECT_GE(test_append_c_str.capacity(), my_capacity);
+
+    // append to empty string
+    my_str_t test_empty_c_str = my_str_t("");
+    EXPECT_EQ(test_empty_c_str.size(), 0);
+    EXPECT_GE(test_empty_c_str.capacity(), test_empty_c_str.size());
+    test_empty_c_str.append("hiiii");
+    EXPECT_EQ(test_empty_c_str, my_str_t("hiiii"));
+    EXPECT_EQ(test_empty_c_str.size(), 5);
+    EXPECT_GE(test_empty_c_str.capacity(), test_empty_c_str.size());
+}
 //
 // * erase
 // */
