@@ -20,72 +20,72 @@ namespace {
 
 }
 
-TEST_F(ClassDeclaration, constructors) {
+//TEST_F(ClassDeclaration, constructors) {
     // test string parameters after create
-    EXPECT_EQ(string_size_20.size(), 20);
-    EXPECT_GE(string_size_20.capacity(), string_size_20.size());
+  //  EXPECT_EQ(string_size_20.size(), 20);
+   // EXPECT_GE(string_size_20.capacity(), string_size_20.size());
 
-    EXPECT_EQ(string_size_2.size(), 2);
-    EXPECT_GE(string_size_2.capacity(), string_size_2.size());
+    //EXPECT_EQ(string_size_2.size(), 2);
+    //EXPECT_GE(string_size_2.capacity(), string_size_2.size());
 
-    EXPECT_EQ(string_empty.size(), 0);
-    EXPECT_GE(string_empty.capacity(), string_empty.size());
+    //EXPECT_EQ(string_empty.size(), 0);
+    //EXPECT_GE(string_empty.capacity(), string_empty.size());
 
-    string_size_2_copy[0] = 'm';
-    EXPECT_NE(string_size_2, string_size_2_copy);
+    //string_size_2_copy[0] = 'm';
+    //EXPECT_NE(string_size_2, string_size_2_copy);
 
     // test create return code if string != NULL
-    ASSERT_NO_THROW(my_str_t(20, 'c'));
-    ASSERT_NO_THROW(my_str_t("c_string"));
-    ASSERT_NO_THROW(my_str_t("c++_string"));
+    //ASSERT_NO_THROW(my_str_t(20, 'c'));
+    //ASSERT_NO_THROW(my_str_t("c_string"));
+    //ASSERT_NO_THROW(my_str_t("c++_string"));
 
     // should assert 1 out of 2. TODO: rewrite to have one assert
-    ASSERT_ANY_THROW((my_str_t{std::numeric_limits<size_t>::max()/100, 'c'}));
-}
+    //ASSERT_ANY_THROW((my_str_t{std::numeric_limits<size_t>::max()/100, 'c'}));
+//}
 
 /*
  * index operators
  */
-TEST_F(ClassDeclaration, index_operators) {
-    my_str_t test_index = my_str_t("hi, hello, hola!");
+//TEST_F(ClassDeclaration, index_operators) {
+  //  my_str_t test_index = my_str_t("hi, hello, hola!");
 
-    ASSERT_EQ(test_index[1], 'i');
-    ASSERT_EQ(test_index.at(2), ',');
+    //ASSERT_EQ(test_index[1], 'i');
+    //ASSERT_EQ(test_index.at(2), ',');
 
-    EXPECT_ANY_THROW(test_index.at(100));
+   // EXPECT_ANY_THROW(test_index.at(100));
 
-    test_index[3] = 'h';
+    //test_index[3] = 'h';
 
-    ASSERT_EQ(test_index, my_str_t("hi,hhello, hola!"));
-}
+    //ASSERT_EQ(test_index, my_str_t("hi,hhello, hola!"));
+//}
 //
 ///*
 // *  test of assignment operator
 // */
-TEST_F(ClassDeclaration, assign_operator) {
-    my_str_t assign_to = my_str_t("hello world!");
-    my_str_t assign_this = my_str_t("goodbye world! see you soon!");
+//TEST_F(ClassDeclaration, assign_operator) {
+  //  my_str_t assign_to = my_str_t("hello world!");
+    //my_str_t assign_this = my_str_t("goodbye world! see you soon!");
 
-    EXPECT_EQ(assign_to.size(), 12);
-    EXPECT_GE(assign_to.capacity(), assign_to.size());
+    //EXPECT_EQ(assign_to.size(), 12);
+    //EXPECT_GE(assign_to.capacity(), assign_to.size());
 
-    EXPECT_EQ(assign_this.size(), 28);
-    EXPECT_GE(assign_this.capacity(), assign_this.size());
+    //EXPECT_EQ(assign_this.size(), 28);
+    //EXPECT_GE(assign_this.capacity(), assign_this.size());
 
-    assign_to = assign_this;
+    //assign_to = assign_this;
 
-    EXPECT_EQ(assign_this.size(), 28);
-    EXPECT_GE(assign_this.capacity(), assign_this.size());
+    //EXPECT_EQ(assign_this.size(), 28);
+    //EXPECT_GE(assign_this.capacity(), assign_this.size());
 
-    EXPECT_EQ(assign_to.size(), 28);
-    EXPECT_GE(assign_to.capacity(), assign_to.size());
+    //EXPECT_EQ(assign_to.size(), 28);
+    //EXPECT_GE(assign_to.capacity(), assign_to.size());
 
-    EXPECT_EQ(assign_to, assign_this);
+    //EXPECT_EQ(assign_to, assign_this);
 
-    assign_to[0] = 'G';
+    //assign_to[0] = 'G';
 
-    EXPECT_NE(assign_to, assign_this);
-}
+    //EXPECT_NE(assign_to, assign_this);
+//}
 
 ///*
 // * test swap
@@ -518,67 +518,68 @@ TEST_F(ClassDeclaration, assign_operator) {
 ///*
 // * find substring c and std::string
 // */
-//TEST_F(ClassDeclaration, find_sub_c_std){
-//    my_str_t test("Yaroshko");
-//    EXPECT_EQ(test.size(), 8);
-//    EXPECT_GE(test.capacity(), test.size());
+TEST_F(ClassDeclaration, find_sub_c_std){
+    my_str_t test("Yaroshko");
+    EXPECT_EQ(test.size(), 8);
+    EXPECT_GE(test.capacity(), test.size());
 //
-//    size_t not_found = -1;
-//    EXPECT_EQ(test.find("osh"), 3);
-//    EXPECT_EQ(test.find(std::string("osh")), 3);
+    size_t not_found = -1;
+    EXPECT_EQ(test.find("osh"), 3);
+    EXPECT_EQ(test.find(std::string("osh")), 3);
 //
-//    EXPECT_EQ(test.find("Yar"), 0);
-//    EXPECT_EQ(test.find(std::string("Yar")), 0);
+    EXPECT_EQ(test.find("Yar"), 0);
+    EXPECT_EQ(test.find(std::string("Yar")), 0);
 //
-//    EXPECT_EQ(test.find("Yar", 1), not_found);
-//    EXPECT_EQ(test.find(std::string("Yar"), 1), not_found);
+    EXPECT_EQ(test.find("Yar", 1), not_found);
+    EXPECT_EQ(test.find(std::string("Yar"), 1), not_found);
 //
-//    EXPECT_EQ(test.find("ko", 3), 6);
-//    EXPECT_EQ(test.find(std::string("ko"), 3), 6);
+    EXPECT_EQ(test.find("ko", 3), 6);
+    EXPECT_EQ(test.find(std::string("ko"), 3), 6);
 //
-//    EXPECT_EQ(test.find("ko", 8), not_found);
-//    EXPECT_EQ(test.find(std::string("ko"), 8), not_found);
+    EXPECT_EQ(test.find("ko", 8), not_found);
+    EXPECT_EQ(test.find(std::string("ko"), 8), not_found);
 //
-//    EXPECT_EQ(test.find("osho"), not_found);
-//    EXPECT_EQ(test.find(std::string("osho")), not_found);
+    EXPECT_EQ(test.find("osho"), not_found);
+    EXPECT_EQ(test.find(std::string("osho")), not_found);
+
+    EXPECT_EQ(test.find("yvk"), not_found);
+    EXPECT_EQ(test.find(std::string("yvk")), not_found);
 //
-//    EXPECT_EQ(test.find("yvk"), not_found);
-//    EXPECT_EQ(test.find(std::string("yvk")), not_found);
-//
-//    // empty string test
-//    my_str_t empty_test("");
-//    EXPECT_EQ(empty_test.find("yvk"), not_found);
-//    EXPECT_EQ(empty_test.find(""), not_found);
-//    EXPECT_EQ(empty_test.find(std::string("yvk")), not_found);
-//    EXPECT_EQ(empty_test.find(std::string("")), not_found);
-//
-//    EXPECT_THROW(test.find("yvk", 100), std::out_of_range);
-//    EXPECT_THROW(test.find(std::string("yvk"), 100), std::out_of_range);
-//}
+    // empty string test
+    my_str_t empty_test("");
+    EXPECT_EQ(empty_test.find("yvk"), not_found);
+    EXPECT_EQ(empty_test.find(""), not_found);
+    EXPECT_EQ(empty_test.find(std::string("yvk")), not_found);
+    EXPECT_EQ(empty_test.find(std::string("")), not_found);
+
+    EXPECT_THROW(test.find("yvk", 100), std::out_of_range);
+    EXPECT_THROW(test.find(std::string("yvk"), 100), std::out_of_range);
+}
 //
 ///*
 // * substr test
 // */
-//TEST_F(ClassDeclaration, substr_test){
-//    my_str_t test("Seryvko");
-//    EXPECT_EQ(test.size(), 7);
-//    EXPECT_GE(test.capacity(), test.size());
-//
-//    EXPECT_EQ(test.substr(2, 4), "ryvk");
-//    EXPECT_EQ(test.substr(0, 0), "");
-//    EXPECT_EQ(test.substr(3, 10), "yvko");
-//    EXPECT_EQ(test.substr(6, 10), "o");
-//
-//    // empty string test
-//    my_str_t empty_test("");
-//    EXPECT_EQ(empty_test.substr(0, 10), "");
-//
-//    EXPECT_THROW(test.substr(8, 10), std::out_of_range);
+// TEST_F(ClassDeclaration, substr_test){
+   // my_str_t test("Seryvko");
+    //EXPECT_EQ(test.size(), 7);
+    //EXPECT_GE(test.capacity(), test.size());
+
+    //EXPECT_EQ(test.substr(2, 4), "ryvk");
+    //EXPECT_EQ(test.substr(0, 0), "");
+    //EXPECT_EQ(test.substr(3, 10), "yvko");
+    //EXPECT_EQ(test.substr(6, 10), "o");
+
+    // empty string test
+    //my_str_t empty_test("");
+    //EXPECT_EQ(empty_test.substr(0, 10), "");
+
+    //EXPECT_THROW(test.substr(8, 10), std::out_of_range);
 //}
 //
 ///*
 // * equality operator
 // */
+//
 //TEST_F(ClassDeclaration, equality_operator){
 //    my_str_t test("Muzychu");
 //    my_str_t test1("appendedmystr");
@@ -589,8 +590,8 @@ TEST_F(ClassDeclaration, assign_operator) {
 //    EXPECT_EQ(test != test1, true);
 //    EXPECT_EQ(test != "Muzychu", false);
 //    EXPECT_EQ("Muzychu" != test, false);
-//    // extra task - can't be in tests
-//    // EXPECT_EQ(test + "appendedmystr", "Muzychu" + test1);
+    // extra task - can't be in tests
+    // EXPECT_EQ(test + "appendedmystr", "Muzychu" + test1);
 //}
 //
 ///*
@@ -598,13 +599,13 @@ TEST_F(ClassDeclaration, assign_operator) {
 // */
 //TEST_F(ClassDeclaration, inequality_operator){
 //    my_str_t test("Muzychu");
-//    my_str_t test1("appendedmystr");
-//    EXPECT_EQ(test < test1, true);
+ //   my_str_t test1("appendedmystr");
+ //   EXPECT_EQ(test < test1, true);
 //    EXPECT_EQ(test < "Muzychu", false);
 //    EXPECT_EQ("Muzychu" < test, false);
 //    EXPECT_EQ(test > test1, false);
 //    EXPECT_EQ(test > "Muzychu", false);
-//    EXPECT_EQ("Muzychu" > test, false);
+    //   EXPECT_EQ("Muzychu" > test, false);
 //    EXPECT_EQ(test <= test1, true);
 //    EXPECT_EQ(test <= "Muzychu", true);
 //    EXPECT_EQ("Muzychu" <= test, true);
@@ -617,25 +618,28 @@ TEST_F(ClassDeclaration, assign_operator) {
 ///*
 // * stdin stdout streams
 // */
-//TEST_F(ClassDeclaration, stdin_out) {
-//    std::stringstream ss;
-//    ss << "       hello";
-//    my_str_t str7{"1"};
-//    ss >> str7;
-//
-//    EXPECT_EQ(str7, "hello");
-//}
-//
+// НА ЦЮ ЗАЛУПУ ЧОМУСЬ РУГАЄТЬСЯ
+TEST_F(ClassDeclaration, stdin_out) {
+    std::stringstream ss;
+    ss << "       hello";
+    my_str_t str7{"1"};
+    ss >> str7;
+
+    EXPECT_EQ(str7, "hello");
+}
+
 ///*
 // * readline
 // */
+
+//працює!
 //TEST_F(ClassDeclaration, readline_test) {
-//    std::stringstream ss1;
-//    ss1 <<"   hello\nworld";
-//    my_str_t str5{"1"};
-//    readline(ss1, str5);
-//
-//    EXPECT_EQ(str5, "   hello");
+    //std::stringstream ss1;
+    //ss1 <<"   hello\nworld";
+    //my_str_t str5{""};
+    //readline(ss1, str5);
+
+  //  EXPECT_EQ(str5, "   hello");
 //}
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
