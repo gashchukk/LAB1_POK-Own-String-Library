@@ -28,3 +28,4 @@ cstring, standart libarary
 
 <mark>run the folowing command:
 /my_string.exe</mark>
+# Lab1_pok
